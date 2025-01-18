@@ -1,0 +1,11 @@
+
+/.vs
+
+# Ignorar archivos de configuración
+appsettings.json
+web.config
+
+# Ignorar archivos de compilación
+bin/
+obj/
+
