@@ -13,7 +13,7 @@ using System.Text;
 namespace Company1.Ecommerce.Service.WebApi.Controllers.v2;
 
 [Authorize]
-[Route("api/[controller]/[action]")]
+[Route("api/v{version:apiVersion}/[controller]/[action]")]
 [ApiController]
 [ApiVersion("2.0")]
 public class UsersController : Controller
