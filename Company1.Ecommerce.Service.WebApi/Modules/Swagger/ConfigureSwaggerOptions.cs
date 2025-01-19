@@ -30,7 +30,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
         var info = new OpenApiInfo
         {
             Version = description.ApiVersion.ToString(),
-            Title = "My API",
+            Title = "API Ecommerce",
             Description = "A simple example ASP.NET Core Web API",
             TermsOfService = new Uri("https://example.com/terms"),
             Contact = new OpenApiContact
@@ -45,6 +45,9 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
                 Url = new Uri("https://example.com/license"),
             }
         };
+
+        if ( description.IsDeprecated)
+            info.Description += " **_This version is deprecated_**";
 
         return info;
     } 
