@@ -10,11 +10,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Company1.Ecommerce.Service.WebApi.Controllers;
+namespace Company1.Ecommerce.Service.WebApi.Controllers.v1;
 
 [Authorize]
 [Route("api/[controller]/[action]")]
 [ApiController]
+[ApiVersion("1.0")]
 public class UsersController : Controller
 {
     private readonly IUsersApplication _userApplication;

@@ -3,11 +3,12 @@ using Company1.Ecommerce.Application.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Company1.Ecommerce.Service.WebApi.Controllers;
+namespace Company1.Ecommerce.Service.WebApi.Controllers.v1;
 
 [Authorize]
 [Route("api/[controller]/[action]")]
 [ApiController]
+[ApiVersion("1.0")]
 public class CustomersController : Controller
 {
     private readonly ICustomersApplication _customerApplication;
