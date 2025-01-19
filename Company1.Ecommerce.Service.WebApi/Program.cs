@@ -1,10 +1,13 @@
 using Company1.Ecommerce.Service.WebApi.Modules.Authentication;
 using Company1.Ecommerce.Service.WebApi.Modules.Feature;
+using Company1.Ecommerce.Service.WebApi.Modules.HealthCheck;
 using Company1.Ecommerce.Service.WebApi.Modules.Injection;
 using Company1.Ecommerce.Service.WebApi.Modules.Mapper;
 using Company1.Ecommerce.Service.WebApi.Modules.Swagger;
 using Company1.Ecommerce.Service.WebApi.Modules.Validator;
 using Company1.Ecommerce.Service.WebApi.Modules.Versioning;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +22,7 @@ builder.Services.AddSwagger();
 
 builder.Services.AddMapper();
 builder.Services.AddValidators();
+builder.Services.AddHealthCheck(Configuration);
 
 builder.Services.AddInjection(Configuration);
 
@@ -50,6 +54,14 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecksUI();
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+//comprueba http://localhost:5285/health
+//visita http://localhost:5285/healthchecks-ui#/healthchecks
 
 app.Run();
 #endregion
