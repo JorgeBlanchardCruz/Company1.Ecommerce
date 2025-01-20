@@ -1,6 +1,6 @@
 ﻿using Company1.Ecommerce.Domain.Entity;
+using Company1.Ecommerce.Infrastructure.Data;
 using Company1.Ecommerce.Infrastructure.Interface;
-using Company1.Ecommerce.Transverse.Common;
 using Dapper;
 using System.Data;
 
@@ -8,17 +8,17 @@ namespace Company1.Ecommerce.Infrastructure.Repository;
 
 public class CustomersRepository : ICustomersRepository
 {
-    private readonly IConnectionFactory _connection;
+    private readonly DapperContext _context;
 
-    public CustomersRepository(IConnectionFactory connection)
+    public CustomersRepository(DapperContext context)
     {
-        _connection = connection;
+        _context = context;
     }
 
     #region Sinchronous Methods
     public bool Insert(Customers customer)
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersInsert";
 
@@ -41,7 +41,7 @@ public class CustomersRepository : ICustomersRepository
 
     public bool Update(Customers customer)
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersUpdate";
 
@@ -66,7 +66,7 @@ public class CustomersRepository : ICustomersRepository
 
     public bool Delete(string customerId)
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersDelete";
 
@@ -81,7 +81,7 @@ public class CustomersRepository : ICustomersRepository
 
     public Customers Get(string customerId)
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersGetByID";
 
@@ -96,7 +96,7 @@ public class CustomersRepository : ICustomersRepository
 
     public IEnumerable<Customers> GetAll()
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersList";
 
@@ -110,7 +110,7 @@ public class CustomersRepository : ICustomersRepository
     #region Asynchronous Methods
     public async Task<bool> InsertAsync(Customers customer)
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersInsert";
 
@@ -133,7 +133,7 @@ public class CustomersRepository : ICustomersRepository
 
     public async Task<bool> UpdateAsync(Customers customer)
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersUpdate";
 
@@ -158,7 +158,7 @@ public class CustomersRepository : ICustomersRepository
 
     public async Task<bool> DeleteAsync(string customerId)
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersDelete";
 
@@ -173,7 +173,7 @@ public class CustomersRepository : ICustomersRepository
 
     public async Task<Customers> GetAsync(string customerId)
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersGetByID";
 
@@ -188,7 +188,7 @@ public class CustomersRepository : ICustomersRepository
 
     public async Task<IEnumerable<Customers>> GetAllAsync()
     {
-        using var connection = _connection.GetConnection;
+        using var connection = _context.CreateConnection();
 
         var query = "CustomersList";
 

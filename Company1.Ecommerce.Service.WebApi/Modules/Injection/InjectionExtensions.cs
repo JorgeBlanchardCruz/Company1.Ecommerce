@@ -2,7 +2,7 @@
 using Company1.Ecommerce.Application.Main;
 using Company1.Ecommerce.Domain.Core;
 using Company1.Ecommerce.Domain.Interface;
-using Company1.Ecommerce.Infraestructure.Data;
+using Company1.Ecommerce.Infrastructure.Data;
 using Company1.Ecommerce.Infrastructure.Interface;
 using Company1.Ecommerce.Infrastructure.Repository;
 using Company1.Ecommerce.Transverse.Common;
@@ -16,8 +16,8 @@ public static class InjectionExtensions
     {
         services.AddSingleton(configuration);
         services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+        services.AddSingleton<DapperContext>();
 
-        services.AddSingleton<IConnectionFactory, ConnectionFactory>();
         services.AddScoped<ICustomersApplication, CustomersApplication>();
         services.AddScoped<ICustomersDomain, CustomersDomain>();
         services.AddScoped<ICustomersRepository, CustomersRepository>();

@@ -8,13 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.0-preview3.24332.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Company1.Ecommerce.Infraestructure.Data\Company1.Ecommerce.Infrastructure.Data.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Infrastructure.Interface\Company1.Ecommerce.Infrastructure.Interface.csproj" />
-    <ProjectReference Include="..\Company1.Ecommerce.Transverse.Common\Company1.Ecommerce.Transverse.Common.csproj" />
   </ItemGroup>
 
 </Project>
