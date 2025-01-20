@@ -6,6 +6,7 @@ public static class HealthCheckExtensions
     {
         services
             .AddHealthChecks()
+            .AddCheck<HealthCheckCustom>("Health Check Custom", tags: ["custom"])
             .AddSqlServer(configuration.GetConnectionString("NorthwindConnection")!, tags: ["database"]);
 
         services
