@@ -18,6 +18,7 @@ public static class InjectionExtensions
         services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
         services.AddSingleton<DapperContext>();
 
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICustomersApplication, CustomersApplication>();
         services.AddScoped<ICustomersDomain, CustomersDomain>();
         services.AddScoped<ICustomersRepository, CustomersRepository>();
