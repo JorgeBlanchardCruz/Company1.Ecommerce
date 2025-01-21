@@ -61,7 +61,7 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 //comprueba http://localhost:5285/health
-//visita http://localhost:5285/healthchecks-ui#/healthchecks
+//visita http://localhost:5285/healthchecks-ui#/healthchecks para el UI de healthchecks
 
 app.Run();
 #endregion
