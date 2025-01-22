@@ -19,5 +19,6 @@ public interface ICustomersApplication
     Task<Response<bool>> DeleteAsync(string customerId);
     Task<Response<CustomersDTO>> GetAsync(string customerId);
     Task<Response<IEnumerable<CustomersDTO>>> GetAllAsync();
+    Task<ResponsePagination<IEnumerable<CustomersDTO>>> GetAllAsync(int pageIndex, int pageSize);
     #endregion
 }

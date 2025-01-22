@@ -197,5 +197,29 @@ public class CustomersRepository : ICustomersRepository
         return result;
     }
 
+    public async Task<IEnumerable<Customers>> GetAllAsync(int page, int recordsPerPage)
+    {
+        using var connection = _context.CreateConnection();
+
+        var query = "CustomersListWithPagination";
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@PageNumber", page);
+        parameters.Add("@PageSize", recordsPerPage);
+
+        var result = await connection!.QueryAsync<Customers>(query, param: parameters, commandType: CommandType.StoredProcedure);
+
+        return result;
+    }
+
+    public async Task<int> CountAsync()
+    {
+        using var connection = _context.CreateConnection();
+        var query = "SELECT COUNT(1) FROM Customers";
+
+        var result = await connection!.ExecuteScalarAsync<int>(query,commandType: CommandType.Text);
+        return result;
+    }
+
     #endregion
 }

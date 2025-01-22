@@ -18,5 +18,7 @@ public interface ICustomersDomain
     Task<bool> DeleteAsync(string customerId);
     Task<Customers> GetAsync(string customerId);
     Task<IEnumerable<Customers>> GetAllAsync();
+    Task<IEnumerable<Customers>> GetAllAsync(int page, int recordsPerPage);
+    Task<int> CountAsync();
     #endregion
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Company1.Ecommerce.Service.WebApi.Controllers.v2;
 
-[Authorize]
+//[Authorize]
 [Route("api/v{version:apiVersion}/[controller]/[action]")]
 [ApiController]
 [ApiVersion("2.0")]
@@ -25,11 +25,24 @@ public class CustomersController : Controller
         return Ok(response);
     }
 
+    [HttpGet("Paginated")]
+    public async Task<IActionResult> GetAllAsync(int pageIndex, int pageSize)
+    {
+        var response = await _customerApplication.GetAllAsync(pageIndex, pageSize);
+        if (response.IsSuccess)
+            return Ok(response);
+
+        return BadRequest(response.Message);
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
         var response = await _customerApplication.GetAllAsync();
-        return Ok(response);
+        if (response.IsSuccess)
+            return Ok(response);
+
+        return BadRequest(response.Message);
     }
 
     [HttpPost]

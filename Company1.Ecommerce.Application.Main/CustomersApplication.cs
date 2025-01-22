@@ -218,5 +218,33 @@ public class CustomersApplication : ICustomersApplication
         return response;
     }
 
+    public async Task<ResponsePagination<IEnumerable<CustomersDTO>>> GetAllAsync(int pageIndex, int pageSize)
+    {
+        var response = new ResponsePagination<IEnumerable<CustomersDTO>>();
+        try
+        {
+            var count = await _customerDomain.CountAsync();
+
+            var customers = await _customerDomain.GetAllAsync(pageIndex, pageSize);
+            response.Data = _mapper.Map<IEnumerable<CustomersDTO>>(customers);
+
+            if (response.Data is not null)
+            {
+                response.TotalPages = (int)Math.Ceiling((double)count / pageSize);
+                response.PageIndex = pageIndex;
+                response.PageSize = pageSize;
+                response.IsSuccess = true;
+                response.Message = "Customers found";
+            }
+
+        }
+        catch (Exception ex)
+        {
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
+
     #endregion
 }

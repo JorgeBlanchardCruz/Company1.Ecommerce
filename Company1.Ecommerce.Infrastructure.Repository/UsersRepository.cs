@@ -28,6 +28,11 @@ public class UsersRepository : IUsersRepository
         return user;
     }
 
+    public Task<int> CountAsync()
+    {
+        throw new NotImplementedException();
+    }
+
     public bool Delete(string entity)
     {
         throw new NotImplementedException();
@@ -49,6 +54,11 @@ public class UsersRepository : IUsersRepository
     }
 
     public Task<IEnumerable<Users>> GetAllAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Users>> GetAllAsync(int page, int recordsPerPage)
     {
         throw new NotImplementedException();
     }

@@ -69,5 +69,15 @@ public class CustomersDomain : ICustomersDomain
         return await _unitOfWork.Customers.GetAllAsync();
     }
 
+    public async Task<IEnumerable<Customers>> GetAllAsync(int page, int recordsPerPage)
+    {
+        return await _unitOfWork.Customers.GetAllAsync(page, recordsPerPage);
+    }
+
+    public async Task<int> CountAsync()
+    {
+        return await _unitOfWork.Customers.CountAsync();
+    }
+
     #endregion
 }
