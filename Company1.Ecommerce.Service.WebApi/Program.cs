@@ -65,3 +65,5 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 
 app.Run();
 #endregion
+
+public partial class Program { };

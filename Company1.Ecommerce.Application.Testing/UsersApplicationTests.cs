@@ -1,8 +1,5 @@
 ﻿using Company1.Ecommerce.Application.Interface;
-using Company1.Ecommerce.Service.WebApi.Modules.Injection;
-using Company1.Ecommerce.Service.WebApi.Modules.Mapper;
-using Company1.Ecommerce.Service.WebApi.Modules.Validator;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Company1.Ecommerce.Application.Testing;
@@ -10,26 +7,15 @@ namespace Company1.Ecommerce.Application.Testing;
 [TestClass]
 public sealed class UsersApplicationTests
 {
-    private static IConfiguration _configuration;
-    private static IServiceScopeFactory _serviceScopeFactory;
+    private static WebApplicationFactory<Program> _factory = null!;
+    private static IServiceScopeFactory _serviceScopeFactory = null!;
 
     [ClassInitialize]
     public static void Initialize(TestContext _)
     {
-        var builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .AddEnvironmentVariables();
-
-        _configuration = builder.Build();
-
-        var services = new ServiceCollection();
-        services.AddValidators();
-        services.AddMapper();
-        services.AddInjection(_configuration);
-        _serviceScopeFactory = services.BuildServiceProvider().GetRequiredService<IServiceScopeFactory>();
+        _factory = new CustomWebApplicationFactory();
+        _serviceScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
     }
-
 
     [TestMethod]
     public void Authenicate_whenNoSendParameters_thenReturnsError()
