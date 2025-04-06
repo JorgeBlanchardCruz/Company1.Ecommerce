@@ -6,9 +6,11 @@ using Company1.Ecommerce.Service.WebApi.Modules.Mapper;
 using Company1.Ecommerce.Service.WebApi.Modules.Swagger;
 using Company1.Ecommerce.Service.WebApi.Modules.Validator;
 using Company1.Ecommerce.Service.WebApi.Modules.Versioning;
+using Company1.Ecommerce.Service.WebApi.Modules.Watch;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using WatchDog;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration Configuration = builder.Configuration;
@@ -23,6 +25,7 @@ builder.Services.AddSwagger();
 builder.Services.AddMapper();
 builder.Services.AddValidators();
 builder.Services.AddHealthCheck(Configuration);
+builder.Services.AddWatchLog(Configuration);
 
 builder.Services.AddInjection(Configuration);
 
@@ -49,6 +52,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseWatchDogExceptionLogger();
+app.UseHttpsRedirection();
 app.UseCors(FeatureExtensions.MyPolicy);
 app.UseAuthentication();
 app.UseAuthorization();
@@ -62,6 +67,13 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 });
 //comprueba http://localhost:5285/health
 //visita http://localhost:5285/healthchecks-ui#/healthchecks para el UI de healthchecks
+
+app.UseWatchDog(configureOptions =>
+{
+    configureOptions.WatchPageUsername = builder.Configuration["WatchDog:WatchPageUsername"];
+    configureOptions.WatchPagePassword = builder.Configuration["WatchDog:WatchPagePassword"];
+});
+//visita http://localhost:5285/watchdog para el UI de WatchDog
 
 app.Run();
 #endregion
