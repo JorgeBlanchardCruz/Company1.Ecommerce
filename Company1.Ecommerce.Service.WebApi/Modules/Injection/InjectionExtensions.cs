@@ -19,11 +19,17 @@ public static class InjectionExtensions
         services.AddSingleton<DapperContext>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<ICustomersApplication, CustomersApplication>();
+
         services.AddScoped<ICustomersDomain, CustomersDomain>();
         services.AddScoped<ICustomersRepository, CustomersRepository>();
-        services.AddScoped<IUsersApplication, UsersApplication>();
+        services.AddScoped<ICustomersApplication, CustomersApplication>();
+
         services.AddScoped<IUsersDomain, UsersDomain>();
         services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<IUsersApplication, UsersApplication>();
+
+        services.AddScoped<ICategoriesDomain, CategoriesDomain>();
+        services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+        services.AddScoped<ICategoriesApplication, CategoriesApplication>();
     }
 }

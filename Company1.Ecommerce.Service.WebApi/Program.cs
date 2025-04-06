@@ -79,3 +79,9 @@ app.Run();
 #endregion
 
 public partial class Program { };
+
+
+//Container para Redis
+//docker image pull redis/redis-stack:latest
+//docker run -d --name redis-stack -e REDIS_ARGS="--requirepass 123456" -p 6379:6397 -p 8001:8001 redis/redis-stack:latest
+//http://localhost:8001/ para el UI de Redis. username: default, password: 123456

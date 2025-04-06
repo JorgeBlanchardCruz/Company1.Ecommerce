@@ -11,7 +11,7 @@ public static class VersioningExtensions
         {
             options.ReportApiVersions = true;
             options.AssumeDefaultVersionWhenUnspecified = true;
-            options.DefaultApiVersion = new ApiVersion(1, 0);
+            options.DefaultApiVersion = new ApiVersion(2, 0);
             options.ReportApiVersions = true;
             options.ApiVersionReader = new UrlSegmentApiVersionReader();
         });

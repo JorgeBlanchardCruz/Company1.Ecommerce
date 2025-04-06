@@ -23,5 +23,7 @@ public class MappingsProfile : Profile
         //    .ForMember(dest => dest.Fax, source => source.MapFrom(src => src.Fax));
 
         CreateMap<Users, UsersDTO>().ReverseMap();
+
+        CreateMap<Categories, CategoriesDTO>().ReverseMap();
     }
 }

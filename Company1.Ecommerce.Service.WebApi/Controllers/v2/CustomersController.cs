@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Company1.Ecommerce.Service.WebApi.Controllers.v2;
 
-//[Authorize]
+[Authorize]
 [Route("api/v{version:apiVersion}/[controller]/[action]")]
 [ApiController]
 [ApiVersion("2.0")]
