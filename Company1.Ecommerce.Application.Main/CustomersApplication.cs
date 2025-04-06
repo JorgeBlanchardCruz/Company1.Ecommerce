@@ -231,6 +231,7 @@ public class CustomersApplication : ICustomersApplication
             if (response.Data is not null)
             {
                 response.TotalPages = (int)Math.Ceiling((double)count / pageSize);
+                response.TotalRecords = count;
                 response.PageIndex = pageIndex;
                 response.PageSize = pageSize;
                 response.IsSuccess = true;
