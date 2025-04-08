@@ -7,7 +7,8 @@ public static class HealthCheckExtensions
         services
             .AddHealthChecks()
             .AddCheck<HealthCheckCustom>("Health Check Custom", tags: ["custom"])
-            .AddSqlServer(configuration.GetConnectionString("NorthwindConnection")!, tags: ["database"]);
+            .AddSqlServer(configuration.GetConnectionString("NorthwindConnection")!, tags: ["database"])
+            .AddRedis(configuration.GetConnectionString("RedisConnection")!, tags: ["cache"]);
 
         services
             .AddHealthChecksUI()

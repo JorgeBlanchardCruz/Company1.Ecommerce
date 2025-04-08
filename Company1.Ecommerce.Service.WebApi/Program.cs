@@ -3,6 +3,7 @@ using Company1.Ecommerce.Service.WebApi.Modules.Feature;
 using Company1.Ecommerce.Service.WebApi.Modules.HealthCheck;
 using Company1.Ecommerce.Service.WebApi.Modules.Injection;
 using Company1.Ecommerce.Service.WebApi.Modules.Mapper;
+using Company1.Ecommerce.Service.WebApi.Modules.Redis;
 using Company1.Ecommerce.Service.WebApi.Modules.Swagger;
 using Company1.Ecommerce.Service.WebApi.Modules.Validator;
 using Company1.Ecommerce.Service.WebApi.Modules.Versioning;
@@ -21,11 +22,11 @@ builder.Services.AddAuth(Configuration);
 builder.Services.AddVersioning();
 builder.Services.AddFeature(Configuration);
 builder.Services.AddSwagger();
-
 builder.Services.AddMapper();
 builder.Services.AddValidators();
 builder.Services.AddHealthCheck(Configuration);
 builder.Services.AddWatchLog(Configuration);
+builder.Services.AddRedisCache(Configuration);
 
 builder.Services.AddInjection(Configuration);
 
@@ -55,8 +56,10 @@ if (app.Environment.IsDevelopment())
 app.UseWatchDogExceptionLogger();
 app.UseHttpsRedirection();
 app.UseCors(FeatureExtensions.MyPolicy);
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseEndpoints(_ => { });
 
 app.MapControllers();
 app.MapHealthChecksUI();
@@ -65,23 +68,28 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
-//comprueba http://localhost:5285/health
-//visita http://localhost:5285/healthchecks-ui#/healthchecks para el UI de healthchecks
+
 
 app.UseWatchDog(configureOptions =>
 {
     configureOptions.WatchPageUsername = builder.Configuration["WatchDog:WatchPageUsername"];
     configureOptions.WatchPagePassword = builder.Configuration["WatchDog:WatchPagePassword"];
 });
-//visita http://localhost:5285/watchdog para el UI de WatchDog
+
 
 app.Run();
 #endregion
 
 public partial class Program { };
 
+//MapHealthChecks
+//comprueba http://localhost:5285/health
+//visita http://localhost:5285/healthchecks-ui#/healthchecks para el UI de healthchecks
+
+//WatchDog
+//visita http://localhost:5285/watchdog para el UI de WatchDog
 
 //Container para Redis
 //docker image pull redis/redis-stack:latest
-//docker run -d --name redis-stack -e REDIS_ARGS="--requirepass 123456" -p 6379:6397 -p 8001:8001 redis/redis-stack:latest
+//docker run -d --name redis-stack -e REDIS_ARGS="--requirepass 123456" -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
 //http://localhost:8001/ para el UI de Redis. username: default, password: 123456
