@@ -1,10 +1,12 @@
 ﻿using Company1.Ecommerce.Application.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Company1.Ecommerce.Service.WebApi.Controllers.v2;
 
 //[Authorize]
-[Route("api/v{version:apiVersion}/[controller]/[action]")]
+[EnableRateLimiting("fixedWindow")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
 [ApiVersion("2.0")]
 public class CategoriesController : ControllerBase
@@ -16,7 +18,7 @@ public class CategoriesController : ControllerBase
         _categoriesApplication = categoriesApplication;
     }
 
-    [HttpGet]
+    [HttpGet("GetAll")]
     public async Task<IActionResult> GetAllAsync()
     {
         var response = await _categoriesApplication.GetAllAsync();

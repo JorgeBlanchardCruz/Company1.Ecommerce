@@ -3,6 +3,7 @@ using Company1.Ecommerce.Service.WebApi.Modules.Feature;
 using Company1.Ecommerce.Service.WebApi.Modules.HealthCheck;
 using Company1.Ecommerce.Service.WebApi.Modules.Injection;
 using Company1.Ecommerce.Service.WebApi.Modules.Mapper;
+using Company1.Ecommerce.Service.WebApi.Modules.RateLimiter;
 using Company1.Ecommerce.Service.WebApi.Modules.Redis;
 using Company1.Ecommerce.Service.WebApi.Modules.Swagger;
 using Company1.Ecommerce.Service.WebApi.Modules.Validator;
@@ -27,6 +28,7 @@ builder.Services.AddValidators();
 builder.Services.AddHealthCheck(Configuration);
 builder.Services.AddWatchLog(Configuration);
 builder.Services.AddRedisCache(Configuration);
+builder.Services.AddRateLimiter(Configuration);
 
 builder.Services.AddInjection(Configuration);
 
@@ -59,6 +61,7 @@ app.UseCors(FeatureExtensions.MyPolicy);
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter();
 app.UseEndpoints(_ => { });
 
 app.MapControllers();
