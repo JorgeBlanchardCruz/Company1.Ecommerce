@@ -1,6 +1,6 @@
 ﻿namespace Company1.Ecommerce.Domain.Entity;
 
-public class Customers
+public class Customer
 {
     public string CustomerId { get; set; } = null!;
     public string CompanyName { get; set; } = null!;

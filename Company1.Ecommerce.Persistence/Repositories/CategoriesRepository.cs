@@ -1,10 +1,10 @@
 ﻿using Company1.Ecommerce.Application.Interface.Persistence;
 using Company1.Ecommerce.Domain.Entity;
-using Company1.Ecommerce.Persistence.Data;
+using Company1.Ecommerce.Persistence.Context;
 using Dapper;
 using System.Data;
 
-namespace Company1.Ecommerce.Persistence.Repository;
+namespace Company1.Ecommerce.Persistence.Repositories;
 
 public class CategoriesRepository : ICategoriesRepository
 {
@@ -15,12 +15,12 @@ public class CategoriesRepository : ICategoriesRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Categories>> GetAllAsync()
+    public async Task<IEnumerable<Category>> GetAllAsync()
     {
         using var connection = _context.CreateConnection();
         var query = "SELECT * FROM Categories";
 
-        var categories = await connection.QueryAsync<Categories>(query, commandType: CommandType.Text);
+        var categories = await connection.QueryAsync<Category>(query, commandType: CommandType.Text);
         return categories;
     }
 }

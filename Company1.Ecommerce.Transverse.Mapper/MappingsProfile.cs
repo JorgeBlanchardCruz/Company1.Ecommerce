@@ -8,7 +8,7 @@ public class MappingsProfile : Profile
 {
     public MappingsProfile()
     {
-        CreateMap<Customers, CustomersDTO>().ReverseMap();
+        CreateMap<Customer, CustomerDTO>().ReverseMap();
         //CreateMap<Customers, CustomersDTO>().ReverseMap()
         //    .ForMember(dest => dest.CustomerId, source => source.MapFrom(src => src.CustomerId))
         //    .ForMember(dest => dest.CompanyName, source => source.MapFrom(src => src.CompanyName))
@@ -22,8 +22,8 @@ public class MappingsProfile : Profile
         //    .ForMember(dest => dest.Phone, source => source.MapFrom(src => src.Phone))
         //    .ForMember(dest => dest.Fax, source => source.MapFrom(src => src.Fax));
 
-        CreateMap<Users, UsersDTO>().ReverseMap();
+        CreateMap<User, UserDTO>().ReverseMap();
 
-        CreateMap<Categories, CategoriesDTO>().ReverseMap();
+        CreateMap<Category, CategoryDTO>().ReverseMap();
     }
 }

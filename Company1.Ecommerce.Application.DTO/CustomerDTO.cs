@@ -1,6 +1,6 @@
 ﻿namespace Company1.Ecommerce.Application.DTO;
 
-public class CustomersDTO
+public class CustomerDTO
 {
     public string CustomerId { get; set; } = null!;
     public string CompanyName { get; set; } = null!;

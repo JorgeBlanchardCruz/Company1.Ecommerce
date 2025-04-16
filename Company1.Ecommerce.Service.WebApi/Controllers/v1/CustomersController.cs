@@ -33,14 +33,14 @@ public class CustomersController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> InsertAsync(CustomersDTO customer)
+    public async Task<IActionResult> InsertAsync(CustomerDTO customer)
     {
         var response = await _customerApplication.InsertAsync(customer);
         return Ok(response);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateAsync(CustomersDTO customer)
+    public async Task<IActionResult> UpdateAsync(CustomerDTO customer)
     {
         var response = await _customerApplication.UpdateAsync(customer);
         return Ok(response);

@@ -1,10 +1,10 @@
 ﻿using Company1.Ecommerce.Application.Interface.Persistence;
 using Company1.Ecommerce.Domain.Entity;
-using Company1.Ecommerce.Persistence.Data;
+using Company1.Ecommerce.Persistence.Context;
 using Dapper;
 using System.Data;
 
-namespace Company1.Ecommerce.Persistence.Repository;
+namespace Company1.Ecommerce.Persistence.Repositories;
 
 public class UsersRepository : IUsersRepository
 {
@@ -15,7 +15,7 @@ public class UsersRepository : IUsersRepository
         _context = context;
     }
 
-    public Users Authenticate(string userName, string password)
+    public User Authenticate(string userName, string password)
     {
         using var connection = _context.CreateConnection();
         var query = "UsersGetByUserAndPassword";
@@ -23,7 +23,7 @@ public class UsersRepository : IUsersRepository
         parameters.Add("@UserName", userName);
         parameters.Add("@Password", password);
 
-        var user = connection!.QuerySingle<Users>(query, parameters, commandType: CommandType.StoredProcedure);
+        var user = connection!.QuerySingle<User>(query, parameters, commandType: CommandType.StoredProcedure);
 
         return user;
     }
@@ -43,47 +43,47 @@ public class UsersRepository : IUsersRepository
         throw new NotImplementedException();
     }
 
-    public Customers Get(string id)
+    public Customer Get(string id)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<Customers> GetAll()
+    public IEnumerable<Customer> GetAll()
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Users>> GetAllAsync()
+    public Task<IEnumerable<User>> GetAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Users>> GetAllAsync(int page, int recordsPerPage)
+    public Task<IEnumerable<User>> GetAllAsync(int page, int recordsPerPage)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Customers> GetAsync(string id)
+    public Task<Customer> GetAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public bool Insert(Users entity)
+    public bool Insert(User entity)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> InsertAsync(Users entity)
+    public Task<bool> InsertAsync(User entity)
     {
         throw new NotImplementedException();
     }
 
-    public bool Update(Users entity)
+    public bool Update(User entity)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> UpdateAsync(Users entity)
+    public Task<bool> UpdateAsync(User entity)
     {
         throw new NotImplementedException();
     }

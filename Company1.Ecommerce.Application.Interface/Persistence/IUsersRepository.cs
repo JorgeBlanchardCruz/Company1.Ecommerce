@@ -2,8 +2,8 @@
 
 namespace Company1.Ecommerce.Application.Interface.Persistence;
 
-public interface IUsersRepository : IGenericRepository<Users>
+public interface IUsersRepository : IGenericRepository<User>
 {
-    Users Authenticate(string email, string password);
+    User Authenticate(string email, string password);
 
 }

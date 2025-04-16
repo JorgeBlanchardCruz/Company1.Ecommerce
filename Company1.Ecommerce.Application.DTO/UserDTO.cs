@@ -1,6 +1,6 @@
 ﻿namespace Company1.Ecommerce.Application.DTO;
 
-public class UsersDTO
+public class UserDTO
 {
     public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;

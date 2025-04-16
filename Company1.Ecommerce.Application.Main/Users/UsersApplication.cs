@@ -5,7 +5,7 @@ using Company1.Ecommerce.Application.Interface.UseCases;
 using Company1.Ecommerce.Application.Validator;
 using Company1.Ecommerce.Transverse.Common;
 
-namespace Company1.Ecommerce.Application.UseCases;
+namespace Company1.Ecommerce.Application.UseCases.Users;
 
 public class UsersApplication : IUsersApplication
 {
@@ -21,10 +21,10 @@ public class UsersApplication : IUsersApplication
         _unitOfWork = unitOfWork;
     }
 
-    public Response<UsersDTO> Authenticate(string userName, string password)
+    public Response<UserDTO> Authenticate(string userName, string password)
     {
-        var response = new Response<UsersDTO>();
-        var validationResult = _validationRules.Validate(new UsersDTO { UserName = userName, Password = password });
+        var response = new Response<UserDTO>();
+        var validationResult = _validationRules.Validate(new UserDTO { UserName = userName, Password = password });
 
         if (!validationResult.IsValid)
         {
@@ -36,7 +36,7 @@ public class UsersApplication : IUsersApplication
         try
         {
             var user = _unitOfWork.Users.Authenticate(userName, password);
-            response.Data = _mapper.Map<UsersDTO>(user);
+            response.Data = _mapper.Map<UserDTO>(user);
             response.Message = "User authenticated successfully";
             response.IsSuccess = true;
         }

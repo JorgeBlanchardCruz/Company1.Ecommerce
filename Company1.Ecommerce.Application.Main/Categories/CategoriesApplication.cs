@@ -7,7 +7,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
 using System.Text.Json;
 
-namespace Company1.Ecommerce.Application.UseCases;
+namespace Company1.Ecommerce.Application.UseCases.Categories;
 
 public class CategoriesApplication : ICategoriesApplication
 {
@@ -22,9 +22,9 @@ public class CategoriesApplication : ICategoriesApplication
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Response<IEnumerable<CategoriesDTO>>> GetAllAsync()
+    public async Task<Response<IEnumerable<CategoryDTO>>> GetAllAsync()
     {
-        var response = new Response<IEnumerable<CategoriesDTO>>();
+        var response = new Response<IEnumerable<CategoryDTO>>();
         var cacheKey = "CategoriesCacheKey";
 
         try
@@ -32,12 +32,12 @@ public class CategoriesApplication : ICategoriesApplication
             var cachedCategories = await _distributedCache.GetAsync(cacheKey);
             if (cachedCategories is not null)
             {
-                response.Data = JsonSerializer.Deserialize<IEnumerable<CategoriesDTO>>(cachedCategories)!;
+                response.Data = JsonSerializer.Deserialize<IEnumerable<CategoryDTO>>(cachedCategories)!;
             }
             else
             {
                 var categories = await _unitOfWork.Categories.GetAllAsync();
-                response.Data = _mapper.Map<IEnumerable<CategoriesDTO>>(categories);
+                response.Data = _mapper.Map<IEnumerable<CategoryDTO>>(categories);
 
                 if (response.Data is not null)
                 {

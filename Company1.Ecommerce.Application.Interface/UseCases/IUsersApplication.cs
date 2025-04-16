@@ -5,5 +5,5 @@ namespace Company1.Ecommerce.Application.Interface.UseCases;
 
 public interface IUsersApplication
 {
-    Response<UsersDTO> Authenticate(string userName, string password);
+    Response<UserDTO> Authenticate(string userName, string password);
 }

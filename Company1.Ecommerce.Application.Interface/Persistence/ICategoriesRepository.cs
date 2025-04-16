@@ -4,5 +4,5 @@ namespace Company1.Ecommerce.Application.Interface.Persistence;
 
 public interface ICategoriesRepository
 {
-    Task<IEnumerable<Categories>> GetAllAsync();
+    Task<IEnumerable<Category>> GetAllAsync();
 }

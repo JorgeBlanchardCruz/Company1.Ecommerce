@@ -29,7 +29,7 @@ public class UsersController : Controller
 
     [AllowAnonymous]
     [HttpPost]
-    public IActionResult Authenticate([FromBody] UsersDTO userDto)
+    public IActionResult Authenticate([FromBody] UserDTO userDto)
     {
         var response = _userApplication.Authenticate(userDto.UserName, userDto.Password);
         if (response.IsSuccess)
@@ -46,7 +46,7 @@ public class UsersController : Controller
         return BadRequest(response);
     }
 
-    private string BuildToken(Response<UsersDTO> userDto)
+    private string BuildToken(Response<UserDTO> userDto)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey);

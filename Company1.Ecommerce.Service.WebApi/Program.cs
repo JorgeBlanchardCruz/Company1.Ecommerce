@@ -1,3 +1,5 @@
+using Company1.Ecommerce.Application.UseCases;
+using Company1.Ecommerce.Persistence;
 using Company1.Ecommerce.Service.WebApi.Modules.Authentication;
 using Company1.Ecommerce.Service.WebApi.Modules.Feature;
 using Company1.Ecommerce.Service.WebApi.Modules.HealthCheck;
@@ -31,6 +33,8 @@ builder.Services.AddRedisCache(Configuration);
 builder.Services.AddRateLimiter(Configuration);
 
 builder.Services.AddInjection(Configuration);
+builder.Services.AddPersistenceServices();
+builder.Services.AddApplicationServices();
 
 #endregion
 

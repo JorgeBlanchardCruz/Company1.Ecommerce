@@ -1,10 +1,10 @@
 ﻿using Company1.Ecommerce.Application.Interface.Persistence;
 using Company1.Ecommerce.Domain.Entity;
-using Company1.Ecommerce.Persistence.Data;
+using Company1.Ecommerce.Persistence.Context;
 using Dapper;
 using System.Data;
 
-namespace Company1.Ecommerce.Persistence.Repository;
+namespace Company1.Ecommerce.Persistence.Repositories;
 
 public class CustomersRepository : ICustomersRepository
 {
@@ -16,7 +16,7 @@ public class CustomersRepository : ICustomersRepository
     }
 
     #region Sinchronous Methods
-    public bool Insert(Customers customer)
+    public bool Insert(Customer customer)
     {
         using var connection = _context.CreateConnection();
 
@@ -39,7 +39,7 @@ public class CustomersRepository : ICustomersRepository
         return result > 0;
     }
 
-    public bool Update(Customers customer)
+    public bool Update(Customer customer)
     {
         using var connection = _context.CreateConnection();
 
@@ -79,7 +79,7 @@ public class CustomersRepository : ICustomersRepository
         return result > 0;
     }
 
-    public Customers Get(string customerId)
+    public Customer Get(string customerId)
     {
         using var connection = _context.CreateConnection();
 
@@ -89,18 +89,18 @@ public class CustomersRepository : ICustomersRepository
 
         parameters.Add("@CustomerId", customerId);
 
-        var result = connection!.QuerySingle<Customers>(query, parameters, commandType: CommandType.StoredProcedure);
+        var result = connection!.QuerySingle<Customer>(query, parameters, commandType: CommandType.StoredProcedure);
 
         return result;
     }
 
-    public IEnumerable<Customers> GetAll()
+    public IEnumerable<Customer> GetAll()
     {
         using var connection = _context.CreateConnection();
 
         var query = "CustomersList";
 
-        var result = connection!.Query<Customers>(query, commandType: CommandType.StoredProcedure);
+        var result = connection!.Query<Customer>(query, commandType: CommandType.StoredProcedure);
 
         return result;
     }
@@ -108,7 +108,7 @@ public class CustomersRepository : ICustomersRepository
     #endregion
 
     #region Asynchronous Methods
-    public async Task<bool> InsertAsync(Customers customer)
+    public async Task<bool> InsertAsync(Customer customer)
     {
         using var connection = _context.CreateConnection();
 
@@ -131,7 +131,7 @@ public class CustomersRepository : ICustomersRepository
         return result > 0;
     }
 
-    public async Task<bool> UpdateAsync(Customers customer)
+    public async Task<bool> UpdateAsync(Customer customer)
     {
         using var connection = _context.CreateConnection();
 
@@ -171,7 +171,7 @@ public class CustomersRepository : ICustomersRepository
         return result > 0;
     }
 
-    public async Task<Customers> GetAsync(string customerId)
+    public async Task<Customer> GetAsync(string customerId)
     {
         using var connection = _context.CreateConnection();
 
@@ -181,23 +181,23 @@ public class CustomersRepository : ICustomersRepository
 
         parameters.Add("@CustomerId", customerId);
 
-        var result = await connection!.QuerySingleAsync<Customers>(query, parameters, commandType: CommandType.StoredProcedure);
+        var result = await connection!.QuerySingleAsync<Customer>(query, parameters, commandType: CommandType.StoredProcedure);
 
         return result;
     }
 
-    public async Task<IEnumerable<Customers>> GetAllAsync()
+    public async Task<IEnumerable<Customer>> GetAllAsync()
     {
         using var connection = _context.CreateConnection();
 
         var query = "CustomersList";
 
-        var result = await connection!.QueryAsync<Customers>(query, commandType: CommandType.StoredProcedure);
+        var result = await connection!.QueryAsync<Customer>(query, commandType: CommandType.StoredProcedure);
 
         return result;
     }
 
-    public async Task<IEnumerable<Customers>> GetAllAsync(int page, int recordsPerPage)
+    public async Task<IEnumerable<Customer>> GetAllAsync(int page, int recordsPerPage)
     {
         using var connection = _context.CreateConnection();
 
@@ -207,7 +207,7 @@ public class CustomersRepository : ICustomersRepository
         parameters.Add("@PageNumber", page);
         parameters.Add("@PageSize", recordsPerPage);
 
-        var result = await connection!.QueryAsync<Customers>(query, param: parameters, commandType: CommandType.StoredProcedure);
+        var result = await connection!.QueryAsync<Customer>(query, param: parameters, commandType: CommandType.StoredProcedure);
 
         return result;
     }

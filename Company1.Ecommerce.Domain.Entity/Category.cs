@@ -1,6 +1,6 @@
-﻿namespace Company1.Ecommerce.Application.DTO;
+﻿namespace Company1.Ecommerce.Domain.Entity;
 
-public class CategoriesDTO
+public class Category
 {
     public int CategoryID { get; set; }
     public string CategoryName { get; set; } = default!;
