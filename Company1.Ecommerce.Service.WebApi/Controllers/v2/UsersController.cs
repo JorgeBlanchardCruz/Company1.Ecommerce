@@ -1,5 +1,5 @@
 ﻿using Company1.Ecommerce.Application.DTO;
-using Company1.Ecommerce.Application.Interface;
+using Company1.Ecommerce.Application.Interface.UseCases;
 using Company1.Ecommerce.Service.WebApi.Helpers;
 using Company1.Ecommerce.Transverse.Common;
 using Microsoft.AspNetCore.Authorization;

@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Company1.Ecommerce.Infraestructure.Data\Company1.Ecommerce.Infrastructure.Data.csproj" />
-    <ProjectReference Include="..\Company1.Ecommerce.Infrastructure.Interface\Company1.Ecommerce.Infrastructure.Interface.csproj" />
+    <ProjectReference Include="..\Company1.Ecommerce.Application.Interface\Company1.Ecommerce.Application.Interface.csproj" />
+    <ProjectReference Include="..\Company1.Ecommerce.Persistence.Data\Company1.Ecommerce.Persistence.Data.csproj" />
   </ItemGroup>
 
 </Project>

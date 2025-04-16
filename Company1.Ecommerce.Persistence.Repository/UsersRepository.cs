@@ -1,10 +1,10 @@
-﻿using Company1.Ecommerce.Domain.Entity;
-using Company1.Ecommerce.Infrastructure.Data;
-using Company1.Ecommerce.Infrastructure.Interface;
+﻿using Company1.Ecommerce.Application.Interface.Persistence;
+using Company1.Ecommerce.Domain.Entity;
+using Company1.Ecommerce.Persistence.Data;
 using Dapper;
 using System.Data;
 
-namespace Company1.Ecommerce.Infrastructure.Repository;
+namespace Company1.Ecommerce.Persistence.Repository;
 
 public class UsersRepository : IUsersRepository
 {

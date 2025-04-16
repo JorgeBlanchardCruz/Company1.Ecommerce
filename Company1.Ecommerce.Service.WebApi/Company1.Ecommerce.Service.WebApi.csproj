@@ -31,14 +31,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Company1.Ecommerce.Application.DTO\Company1.Ecommerce.Application.DTO.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Application.Interface\Company1.Ecommerce.Application.Interface.csproj" />
-    <ProjectReference Include="..\Company1.Ecommerce.Application.Main\Company1.Ecommerce.Application.Main.csproj" />
+    <ProjectReference Include="..\Company1.Ecommerce.Application.Main\Company1.Ecommerce.Application.UseCases.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Application.Validator\Company1.Ecommerce.Application.Validator.csproj" />
-    <ProjectReference Include="..\Company1.Ecommerce.Domain.Core\Company1.Ecommerce.Domain.Core.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Domain.Entity\Company1.Ecommerce.Domain.Entity.csproj" />
-    <ProjectReference Include="..\Company1.Ecommerce.Domain.Interface\Company1.Ecommerce.Domain.Interface.csproj" />
-    <ProjectReference Include="..\Company1.Ecommerce.Infraestructure.Data\Company1.Ecommerce.Infrastructure.Data.csproj" />
-    <ProjectReference Include="..\Company1.Ecommerce.Infrastructure.Interface\Company1.Ecommerce.Infrastructure.Interface.csproj" />
-    <ProjectReference Include="..\Company1.Ecommerce.Infrastructure.Repository\Company1.Ecommerce.Infrastructure.Repository.csproj" />
+    <ProjectReference Include="..\Company1.Ecommerce.Persistence.Data\Company1.Ecommerce.Persistence.Data.csproj" />
+    <ProjectReference Include="..\Company1.Ecommerce.Persistence.Repository\Company1.Ecommerce.Persistence.Repository.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Transverse.Common\Company1.Ecommerce.Transverse.Common.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Transverse.Logging\Company1.Ecommerce.Transverse.Logging.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Transverse.Mapper\Company1.Ecommerce.Transverse.Mapper.csproj" />

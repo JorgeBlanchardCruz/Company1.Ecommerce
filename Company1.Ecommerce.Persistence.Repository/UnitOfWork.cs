@@ -1,6 +1,6 @@
-﻿using Company1.Ecommerce.Infrastructure.Interface;
+﻿using Company1.Ecommerce.Application.Interface.Persistence;
 
-namespace Company1.Ecommerce.Infrastructure.Repository;
+namespace Company1.Ecommerce.Persistence.Repository;
 
 public class UnitOfWork : IUnitOfWork
 {

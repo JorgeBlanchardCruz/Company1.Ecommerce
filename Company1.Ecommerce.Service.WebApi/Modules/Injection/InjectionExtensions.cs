@@ -1,10 +1,8 @@
-﻿using Company1.Ecommerce.Application.Interface;
-using Company1.Ecommerce.Application.Main;
-using Company1.Ecommerce.Domain.Core;
-using Company1.Ecommerce.Domain.Interface;
-using Company1.Ecommerce.Infrastructure.Data;
-using Company1.Ecommerce.Infrastructure.Interface;
-using Company1.Ecommerce.Infrastructure.Repository;
+﻿using Company1.Ecommerce.Application.Interface.Persistence;
+using Company1.Ecommerce.Application.Interface.UseCases;
+using Company1.Ecommerce.Application.UseCases;
+using Company1.Ecommerce.Persistence.Data;
+using Company1.Ecommerce.Persistence.Repository;
 using Company1.Ecommerce.Transverse.Common;
 using Company1.Ecommerce.Transverse.Logging;
 
@@ -12,7 +10,7 @@ namespace Company1.Ecommerce.Service.WebApi.Modules.Injection;
 
 public static class InjectionExtensions
 {
-    public static void AddInjection(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInjection(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton(configuration);
         services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
@@ -20,16 +18,15 @@ public static class InjectionExtensions
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddScoped<ICustomersDomain, CustomersDomain>();
         services.AddScoped<ICustomersRepository, CustomersRepository>();
         services.AddScoped<ICustomersApplication, CustomersApplication>();
 
-        services.AddScoped<IUsersDomain, UsersDomain>();
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<IUsersApplication, UsersApplication>();
 
-        services.AddScoped<ICategoriesDomain, CategoriesDomain>();
         services.AddScoped<ICategoriesRepository, CategoriesRepository>();
         services.AddScoped<ICategoriesApplication, CategoriesApplication>();
+
+        return services;
     }
 }

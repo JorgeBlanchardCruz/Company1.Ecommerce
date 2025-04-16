@@ -1,23 +1,24 @@
 ﻿using AutoMapper;
 using Company1.Ecommerce.Application.DTO;
-using Company1.Ecommerce.Application.Interface;
+using Company1.Ecommerce.Application.Interface.Persistence;
+using Company1.Ecommerce.Application.Interface.UseCases;
 using Company1.Ecommerce.Application.Validator;
-using Company1.Ecommerce.Domain.Interface;
 using Company1.Ecommerce.Transverse.Common;
 
-namespace Company1.Ecommerce.Application.Main;
+namespace Company1.Ecommerce.Application.UseCases;
 
 public class UsersApplication : IUsersApplication
 {
-    private readonly IUsersDomain _usersDomain;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly UsersDtoValidator _validationRules;
 
-    public UsersApplication(IUsersDomain usersDomain, IMapper mapper, UsersDtoValidator validationRules)
+    public UsersApplication(IMapper mapper, UsersDtoValidator validationRules, IUnitOfWork unitOfWork)
     {
-        _usersDomain = usersDomain;
         _mapper = mapper;
         _validationRules = validationRules;
+
+        _unitOfWork = unitOfWork;
     }
 
     public Response<UsersDTO> Authenticate(string userName, string password)
@@ -34,7 +35,7 @@ public class UsersApplication : IUsersApplication
 
         try
         {
-            var user = _usersDomain.Authenticate(userName, password);
+            var user = _unitOfWork.Users.Authenticate(userName, password);
             response.Data = _mapper.Map<UsersDTO>(user);
             response.Message = "User authenticated successfully";
             response.IsSuccess = true;

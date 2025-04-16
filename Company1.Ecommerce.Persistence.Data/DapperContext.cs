@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Data;
 
-namespace Company1.Ecommerce.Infrastructure.Data;
+namespace Company1.Ecommerce.Persistence.Data;
 
 public class DapperContext
 {

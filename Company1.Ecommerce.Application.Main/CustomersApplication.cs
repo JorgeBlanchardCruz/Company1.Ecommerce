@@ -1,23 +1,24 @@
 ﻿using AutoMapper;
 using Company1.Ecommerce.Application.DTO;
-using Company1.Ecommerce.Application.Interface;
+using Company1.Ecommerce.Application.Interface.Persistence;
+using Company1.Ecommerce.Application.Interface.UseCases;
 using Company1.Ecommerce.Domain.Entity;
-using Company1.Ecommerce.Domain.Interface;
 using Company1.Ecommerce.Transverse.Common;
 
-namespace Company1.Ecommerce.Application.Main;
+namespace Company1.Ecommerce.Application.UseCases;
 
 public class CustomersApplication : ICustomersApplication
 {
-    private readonly ICustomersDomain _customerDomain;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly IAppLogger<CustomersApplication> _logger;
 
-    public CustomersApplication(ICustomersDomain customerDomain, IMapper mapper, IAppLogger<CustomersApplication> logger)
+    public CustomersApplication(IMapper mapper, IAppLogger<CustomersApplication> logger, IUnitOfWork unitOfWork)
     {
-        _customerDomain = customerDomain;
         _mapper = mapper;
         _logger = logger;
+
+        _unitOfWork = unitOfWork;
     }
 
     #region Sinchronous Methods
@@ -27,7 +28,7 @@ public class CustomersApplication : ICustomersApplication
         try
         {
             var customer = _mapper.Map<Customers>(customerDTO);
-            response.Data = _customerDomain.Insert(customer);
+            response.Data = _unitOfWork.Customers.Insert(customer);
 
             if(response.Data)
             {
@@ -49,7 +50,7 @@ public class CustomersApplication : ICustomersApplication
         try
         {
             var customerEntity = _mapper.Map<Customers>(customer);
-            response.Data = _customerDomain.Update(customerEntity);
+            response.Data = _unitOfWork.Customers.Update(customerEntity);
             if (response.Data)
             {
                 response.IsSuccess = true;
@@ -69,7 +70,7 @@ public class CustomersApplication : ICustomersApplication
         var response = new Response<bool>();
         try
         {
-            response.Data = _customerDomain.Delete(customerId);
+            response.Data = _unitOfWork.Customers.Delete(customerId);
             if (response.Data)
             {
                 response.IsSuccess = true;
@@ -89,7 +90,7 @@ public class CustomersApplication : ICustomersApplication
         var response = new Response<CustomersDTO>();
         try
         {
-            var customer = _customerDomain.Get(customerId);
+            var customer = _unitOfWork.Customers.Get(customerId);
             response.Data = _mapper.Map<CustomersDTO>(customer);
             response.IsSuccess = true;
         }
@@ -106,7 +107,7 @@ public class CustomersApplication : ICustomersApplication
         var response = new Response<IEnumerable<CustomersDTO>>();
         try
         {
-            var customers = _customerDomain.GetAll();
+            var customers = _unitOfWork.Customers.GetAll();
             response.Data = _mapper.Map<IEnumerable<CustomersDTO>>(customers);
             response.IsSuccess = true;
         }
@@ -126,7 +127,7 @@ public class CustomersApplication : ICustomersApplication
         try
         {
             var customer = _mapper.Map<Customers>(customerDTO);
-            response.Data = await _customerDomain.InsertAsync(customer);
+            response.Data = await _unitOfWork.Customers.InsertAsync(customer);
 
             if (response.Data)
             {
@@ -147,7 +148,7 @@ public class CustomersApplication : ICustomersApplication
         try
         {
             var customer = _mapper.Map<Customers>(customerDTO);
-            response.Data = await _customerDomain.UpdateAsync(customer);
+            response.Data = await _unitOfWork.Customers.UpdateAsync(customer);
             if (response.Data)
             {
                 response.IsSuccess = true;
@@ -166,7 +167,7 @@ public class CustomersApplication : ICustomersApplication
         var response = new Response<bool>();
         try
         {
-            response.Data = await _customerDomain.DeleteAsync(customerId);
+            response.Data = await _unitOfWork.Customers.DeleteAsync(customerId);
             if (response.Data)
             {
                 response.IsSuccess = true;
@@ -185,7 +186,7 @@ public class CustomersApplication : ICustomersApplication
         var response = new Response<CustomersDTO>();
         try
         {
-            var customer = await _customerDomain.GetAsync(customerId);
+            var customer = await _unitOfWork.Customers.GetAsync(customerId);
             response.Data = _mapper.Map<CustomersDTO>(customer);
             response.IsSuccess = true;
         }
@@ -201,7 +202,7 @@ public class CustomersApplication : ICustomersApplication
         var response = new Response<IEnumerable<CustomersDTO>>();
         try
         {
-            var customers = await _customerDomain.GetAllAsync();
+            var customers = await _unitOfWork.Customers.GetAllAsync();
             response.Data = _mapper.Map<IEnumerable<CustomersDTO>>(customers);
             if (response.Data is not null)
             {
@@ -223,9 +224,9 @@ public class CustomersApplication : ICustomersApplication
         var response = new ResponsePagination<IEnumerable<CustomersDTO>>();
         try
         {
-            var count = await _customerDomain.CountAsync();
+            var count = await _unitOfWork.Customers.CountAsync();
 
-            var customers = await _customerDomain.GetAllAsync(pageIndex, pageSize);
+            var customers = await _unitOfWork.Customers.GetAllAsync(pageIndex, pageSize);
             response.Data = _mapper.Map<IEnumerable<CustomersDTO>>(customers);
 
             if (response.Data is not null)

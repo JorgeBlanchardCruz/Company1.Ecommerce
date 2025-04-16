@@ -1,4 +1,4 @@
-﻿using Company1.Ecommerce.Application.Interface;
+﻿using Company1.Ecommerce.Application.Interface.UseCases;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
