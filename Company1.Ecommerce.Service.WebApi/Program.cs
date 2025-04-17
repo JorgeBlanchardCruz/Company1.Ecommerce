@@ -33,7 +33,7 @@ builder.Services.AddRedisCache(Configuration);
 builder.Services.AddRateLimiter(Configuration);
 
 builder.Services.AddInjection(Configuration);
-builder.Services.AddPersistenceServices();
+builder.Services.AddPersistenceServices(Configuration);
 builder.Services.AddApplicationServices();
 
 #endregion
