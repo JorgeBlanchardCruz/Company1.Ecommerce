@@ -88,15 +88,3 @@ app.Run();
 #endregion
 
 public partial class Program { };
-
-//MapHealthChecks
-//comprueba http://localhost:5285/health
-//visita http://localhost:5285/healthchecks-ui#/healthchecks para el UI de healthchecks
-
-//WatchDog
-//visita http://localhost:5285/watchdog para el UI de WatchDog
-
-//Container para Redis
-//docker image pull redis/redis-stack:latest
-//docker run -d --name redis-stack -e REDIS_ARGS="--requirepass 123456" -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
-//http://localhost:8001/ para el UI de Redis. username: default, password: 123456
