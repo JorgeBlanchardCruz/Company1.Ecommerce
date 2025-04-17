@@ -1,17 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.4" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Company1.Ecommerce.Application.DTO\Company1.Ecommerce.Application.DTO.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Application.Interface\Company1.Ecommerce.Application.Interface.csproj" />
@@ -19,5 +16,4 @@
     <ProjectReference Include="..\Company1.Ecommerce.Domain.Entity\Company1.Ecommerce.Domain.Entity.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Transverse.Common\Company1.Ecommerce.Transverse.Common.csproj" />
   </ItemGroup>
-
 </Project>

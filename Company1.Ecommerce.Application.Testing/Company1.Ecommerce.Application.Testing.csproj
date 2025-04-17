@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net9.0-windows</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -7,7 +6,6 @@
     <Nullable>enable</Nullable>
     <UserSecretsId>9a8d1c5a-6d7e-4d0a-bcdf-7b4887a7e318</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -15,18 +13,14 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.2" />
-    <PackageReference Include="MSTest" Version="3.7.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="MSTest" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Company1.Ecommerce.Service.WebApi\Company1.Ecommerce.Service.WebApi.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
-
 </Project>
