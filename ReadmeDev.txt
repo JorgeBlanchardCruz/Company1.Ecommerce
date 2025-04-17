@@ -1,4 +1,4 @@
-﻿MapHealthChecks
+MapHealthChecks
 comprueba http://localhost:5285/health
 visita http://localhost:5285/healthchecks-ui#/healthchecks para el UI de healthchecks
 
