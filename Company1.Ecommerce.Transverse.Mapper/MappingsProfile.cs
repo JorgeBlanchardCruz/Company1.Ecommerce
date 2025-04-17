@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Company1.Ecommerce.Application.DTO;
-using Company1.Ecommerce.Domain.Entity;
+using Company1.Ecommerce.Domain.Entities;
 
 namespace Company1.Ecommerce.Transverse.Mapper;
 

@@ -29,7 +29,6 @@
     <ProjectReference Include="..\Company1.Ecommerce.Application.Interface\Company1.Ecommerce.Application.Interface.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Application.Main\Company1.Ecommerce.Application.UseCases.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Application.Validator\Company1.Ecommerce.Application.Validator.csproj" />
-    <ProjectReference Include="..\Company1.Ecommerce.Domain.Entity\Company1.Ecommerce.Domain.Entity.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Persistence\Company1.Ecommerce.Persistence.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Transverse.Common\Company1.Ecommerce.Transverse.Common.csproj" />
     <ProjectReference Include="..\Company1.Ecommerce.Transverse.Logging\Company1.Ecommerce.Transverse.Logging.csproj" />

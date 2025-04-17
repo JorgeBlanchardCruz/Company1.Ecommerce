@@ -1,4 +1,4 @@
-﻿namespace Company1.Ecommerce.Domain.Entity;
+﻿namespace Company1.Ecommerce.Domain.Entities;
 
 public class Category
 {

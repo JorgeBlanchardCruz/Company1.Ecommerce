@@ -2,7 +2,7 @@
 using Company1.Ecommerce.Application.DTO;
 using Company1.Ecommerce.Application.Interface.Persistence;
 using Company1.Ecommerce.Application.Interface.UseCases;
-using Company1.Ecommerce.Domain.Entity;
+using Company1.Ecommerce.Domain.Entities;
 using Company1.Ecommerce.Transverse.Common;
 
 namespace Company1.Ecommerce.Application.UseCases.Customers;

@@ -1,5 +1,5 @@
 ﻿using Company1.Ecommerce.Application.Interface.Persistence;
-using Company1.Ecommerce.Domain.Entity;
+using Company1.Ecommerce.Domain.Entities;
 using Company1.Ecommerce.Persistence.Context;
 using Dapper;
 using System.Data;
