@@ -65,7 +65,7 @@ public class CustomersApplication : ICustomersApplication
         return response;
     }
 
-    public Response<bool> Delete(string customerId)
+    public Response<bool> Delete(int customerId)
     {
         var response = new Response<bool>();
         try
@@ -85,7 +85,7 @@ public class CustomersApplication : ICustomersApplication
         return response;
     }
 
-    public Response<CustomerDTO> Get(string customerId)
+    public Response<CustomerDTO> Get(int customerId)
     {
         var response = new Response<CustomerDTO>();
         try
@@ -162,7 +162,7 @@ public class CustomersApplication : ICustomersApplication
         return response;
     }
 
-    public async Task<Response<bool>> DeleteAsync(string customerId)
+    public async Task<Response<bool>> DeleteAsync(int customerId)
     {
         var response = new Response<bool>();
         try
@@ -181,7 +181,7 @@ public class CustomersApplication : ICustomersApplication
         return response;
     }
 
-    public async Task<Response<CustomerDTO>> GetAsync(string customerId)
+    public async Task<Response<CustomerDTO>> GetAsync(int customerId)
     {
         var response = new Response<CustomerDTO>();
         try

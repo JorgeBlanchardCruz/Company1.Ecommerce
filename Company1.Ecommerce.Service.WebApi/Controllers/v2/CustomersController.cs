@@ -19,7 +19,7 @@ public class CustomersController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAsync(string customerId)
+    public async Task<IActionResult> GetAsync(int customerId)
     {
         var response = await _customerApplication.GetAsync(customerId);
         return Ok(response);
@@ -53,7 +53,7 @@ public class CustomersController : Controller
     }
 
     [HttpPut("{customerId}")]
-    public async Task<IActionResult> UpdateAsync([FromRoute] string customerId, CustomerDTO customer)
+    public async Task<IActionResult> UpdateAsync([FromRoute] int customerId, CustomerDTO customer)
     {
         var customerDto = await _customerApplication.GetAsync(customerId);
 
@@ -65,7 +65,7 @@ public class CustomersController : Controller
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteAsync(string customerId)
+    public async Task<IActionResult> DeleteAsync(int customerId)
     {
         var response = await _customerApplication.DeleteAsync(customerId);
         return Ok(response);

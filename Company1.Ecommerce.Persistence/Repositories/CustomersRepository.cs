@@ -64,7 +64,7 @@ public class CustomersRepository : ICustomersRepository
         return result > 0;
     }
 
-    public bool Delete(string customerId)
+    public bool Delete(int customerId)
     {
         using var connection = _context.CreateConnection();
 
@@ -79,7 +79,7 @@ public class CustomersRepository : ICustomersRepository
         return result > 0;
     }
 
-    public Customer Get(string customerId)
+    public Customer Get(int customerId)
     {
         using var connection = _context.CreateConnection();
 
@@ -156,7 +156,7 @@ public class CustomersRepository : ICustomersRepository
         return result > 0;
     }
 
-    public async Task<bool> DeleteAsync(string customerId)
+    public async Task<bool> DeleteAsync(int customerId)
     {
         using var connection = _context.CreateConnection();
 
@@ -171,7 +171,7 @@ public class CustomersRepository : ICustomersRepository
         return result > 0;
     }
 
-    public async Task<Customer> GetAsync(string customerId)
+    public async Task<Customer> GetAsync(int customerId)
     {
         using var connection = _context.CreateConnection();
 
