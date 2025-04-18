@@ -1,4 +1,6 @@
-﻿namespace Company1.Ecommerce.Service.WebApi.Modules.Feature;
+﻿using System.Text.Json.Serialization;
+
+namespace Company1.Ecommerce.Service.WebApi.Modules.Feature;
 
 public static class FeatureExtensions
 {
@@ -6,7 +8,6 @@ public static class FeatureExtensions
 
     public static IServiceCollection AddFeature(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddControllers();
         services.AddOpenApi();
         services.AddEndpointsApiExplorer();
 
@@ -16,7 +17,11 @@ public static class FeatureExtensions
             .AllowAnyOrigin()
             ));
 
-
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            var enumConverter = new JsonStringEnumConverter();
+            options.JsonSerializerOptions.Converters.Add(enumConverter);
+        });
 
         return services;
     }
