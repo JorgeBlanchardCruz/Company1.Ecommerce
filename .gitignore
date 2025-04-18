@@ -8,4 +8,9 @@ web.config
 # Ignorar archivos de compilación
 bin/
 obj/
+v17/
+CopilotIndices/
+FileContentIndex/
+
+
 

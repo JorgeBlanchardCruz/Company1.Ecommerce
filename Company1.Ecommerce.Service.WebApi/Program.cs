@@ -1,4 +1,5 @@
 using Company1.Ecommerce.Application.UseCases;
+using Company1.Ecommerce.Infrastructure;
 using Company1.Ecommerce.Persistence;
 using Company1.Ecommerce.Service.WebApi.Modules.Authentication;
 using Company1.Ecommerce.Service.WebApi.Modules.Feature;
@@ -30,6 +31,7 @@ builder.Services.AddRateLimiter(Configuration);
 
 builder.Services.AddInjection(Configuration);
 builder.Services.AddPersistenceServices(Configuration);
+builder.Services.AddInfrastructureServices(Configuration);
 builder.Services.AddApplicationServices();
 
 #endregion

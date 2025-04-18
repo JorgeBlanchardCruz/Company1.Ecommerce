@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Company1.Ecommerce.Application.DTO;
+using Company1.Ecommerce.Application.Interface.Infrastructure;
 using Company1.Ecommerce.Application.Interface.Persistence;
 using Company1.Ecommerce.Application.Interface.UseCases;
 using Company1.Ecommerce.Application.Validator;
 using Company1.Ecommerce.Domain.Entities;
+using Company1.Ecommerce.Domain.Events;
 using Company1.Ecommerce.Transverse.Common;
 
 namespace Company1.Ecommerce.Application.UseCases.Discounts;
@@ -12,12 +14,14 @@ public class DiscountsApplication : IDiscountsApplication
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IEventBus _eventBus;
     private readonly DiscountDtoValidator _validator;
 
-    public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, DiscountDtoValidator validator)
+    public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, IEventBus eventBus, DiscountDtoValidator validator)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _eventBus = eventBus;
         _validator = validator;
     }
 
@@ -42,6 +46,10 @@ public class DiscountsApplication : IDiscountsApplication
             {
                 response.Message = "Discount created successfully";
                 response.IsSuccess = true;
+
+                // Publish an event if needed
+                var discountCreatedEvent = _mapper.Map<DiscountCreatedEvent>(discountEntity);
+                _eventBus.Publish(discountCreatedEvent);
             }
         }
         catch (Exception ex)

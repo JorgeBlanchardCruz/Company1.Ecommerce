@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Company1.Ecommerce.Application.DTO;
 using Company1.Ecommerce.Domain.Entities;
+using Company1.Ecommerce.Domain.Events;
 
 namespace Company1.Ecommerce.Application.UseCases.Commons.Mappings;
 
@@ -27,5 +28,6 @@ public class MappingsProfile : Profile
         CreateMap<Category, CategoryDTO>().ReverseMap();
 
         CreateMap<Discount, DiscountDTO>().ReverseMap();
+        CreateMap<Discount, DiscountCreatedEvent>().ReverseMap();
     }
 }
