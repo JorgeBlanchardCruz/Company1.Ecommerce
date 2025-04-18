@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		ReadmeDev.txt = ReadmeDev.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company1.Ecommerce.Infrastructure", "Company1.Ecommerce.Infrastructure\Company1.Ecommerce.Infrastructure.csproj", "{D0ACDB89-CA43-4518-BE5F-BF9A1B8CABA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{318B3D77-6098-C167-B516-3D6CEAA752C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{318B3D77-6098-C167-B516-3D6CEAA752C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{318B3D77-6098-C167-B516-3D6CEAA752C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0ACDB89-CA43-4518-BE5F-BF9A1B8CABA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0ACDB89-CA43-4518-BE5F-BF9A1B8CABA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0ACDB89-CA43-4518-BE5F-BF9A1B8CABA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0ACDB89-CA43-4518-BE5F-BF9A1B8CABA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{CDD24A29-4B71-4271-A9A8-EC9B9BDFBA31} = {E5BEB50A-6C62-43B9-A279-27B98B0EF773}
 		{9BA2F06E-19F0-0404-E02D-0B74D7A830E0} = {D71D079D-DE75-4CC5-9852-804B91246E7B}
 		{318B3D77-6098-C167-B516-3D6CEAA752C2} = {79611A44-2610-4F26-B3B7-F67ADD343100}
+		{D0ACDB89-CA43-4518-BE5F-BF9A1B8CABA9} = {D71D079D-DE75-4CC5-9852-804B91246E7B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5488BCC6-DEEA-49F9-8773-F390B7842FCB}

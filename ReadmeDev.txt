@@ -2,8 +2,11 @@ MapHealthChecks
 comprueba http://localhost:5285/health
 visita http://localhost:5285/healthchecks-ui#/healthchecks para el UI de healthchecks
 
+
+
 WatchDog
 visita http://localhost:5285/watchdog para el UI de WatchDog
+
 
 
 Redis cache
@@ -15,6 +18,7 @@ Para ejecutar el contenedor, usa el siguiente comando:
 
 Luego puedes acceder a Redis Stack en
 http://localhost:8001/ para el UI de Redis. username: default, password: 123456
+
 
 
 EntityFramework
@@ -30,3 +34,13 @@ Luego, puedes ejecutar el siguiente comando para aplicar las migraciones:
 
 A continuación, puedes aplicar las migraciones a la base de datos con el siguiente comando:
 >dotnet ef database update --project Company1.Ecommerce.Persistence --startup-project Company1.Ecommerce.Service.WebApi --context ApplicationDbContext
+
+
+
+RabbitMQ
+Para montar un contenedor de RabbitMQ, puedes usar el siguiente comando de Docker:
+>docker run -d -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
+
+Luego puedes acceder a RabbitMQ en 
+http://localhost:15672/ 
+con el usuario y contraseña por defecto: guest / guest
