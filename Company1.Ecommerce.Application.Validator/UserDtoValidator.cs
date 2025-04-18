@@ -3,10 +3,9 @@ using FluentValidation;
 
 namespace Company1.Ecommerce.Application.Validator;
 
-public class UsersDtoValidator : AbstractValidator<UserDTO>
+public class UserDtoValidator : AbstractValidator<UserDTO>
 {
-
-    public UsersDtoValidator()
+    public UserDtoValidator()
     {
         RuleFor(x => x.UserName).NotNull().NotEmpty().WithMessage("UserName is required");
         RuleFor(x => x.Password).NotNull().NotEmpty().WithMessage("Password is required");

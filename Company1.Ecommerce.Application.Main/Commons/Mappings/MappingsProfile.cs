@@ -2,7 +2,7 @@
 using Company1.Ecommerce.Application.DTO;
 using Company1.Ecommerce.Domain.Entities;
 
-namespace Company1.Ecommerce.Transverse.Mapper;
+namespace Company1.Ecommerce.Application.UseCases.Commons.Mappings;
 
 public class MappingsProfile : Profile
 {
@@ -25,5 +25,7 @@ public class MappingsProfile : Profile
         CreateMap<User, UserDTO>().ReverseMap();
 
         CreateMap<Category, CategoryDTO>().ReverseMap();
+
+        CreateMap<Discount, DiscountDTO>().ReverseMap();
     }
 }

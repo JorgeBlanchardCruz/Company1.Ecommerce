@@ -11,9 +11,9 @@ public class UsersApplication : IUsersApplication
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    private readonly UsersDtoValidator _validationRules;
+    private readonly UserDtoValidator _validationRules;
 
-    public UsersApplication(IMapper mapper, UsersDtoValidator validationRules, IUnitOfWork unitOfWork)
+    public UsersApplication(IMapper mapper, UserDtoValidator validationRules, IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
         _validationRules = validationRules;
