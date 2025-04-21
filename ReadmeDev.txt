@@ -14,7 +14,7 @@ Para montar un contenedor de Redis con Redis Stack, puedes usar el siguiente com
 >docker image pull redis/redis-stack:latest
 
 Para ejecutar el contenedor, usa el siguiente comando:
->docker run -d --name redis-stack -e REDIS_ARGS="--requirepass 123456" -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+>docker run -d --restart=always --name redis-stack -e REDIS_ARGS="--requirepass 123456" -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
 
 Luego puedes acceder a Redis Stack en
 http://localhost:8001/ para el UI de Redis. username: default, password: 123456
@@ -39,7 +39,7 @@ A continuación, puedes aplicar las migraciones a la base de datos con el siguien
 
 RabbitMQ
 Para montar un contenedor de RabbitMQ, puedes usar el siguiente comando de Docker:
->docker run -d -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
+>docker run -d -it --restart=always --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
 
 Luego puedes acceder a RabbitMQ en 
 http://localhost:15672/ 
