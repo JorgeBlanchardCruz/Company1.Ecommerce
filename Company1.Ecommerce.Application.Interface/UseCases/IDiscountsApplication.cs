@@ -9,4 +9,6 @@ public interface IDiscountsApplication
     Task<Response<bool>> DeleteAsync(int id, CancellationToken cancellationToken = default);
     Task<Response<DiscountDTO>> GetAsync(int id, CancellationToken cancellationToken = default);
     Task<Response<IEnumerable<DiscountDTO>>> GetAllAsync(CancellationToken cancellationToken = default);
+
+    Task<ResponsePagination<IEnumerable<DiscountDTO>>> GetAllAsync(int pageNumber, int recordsPerPage);
 }

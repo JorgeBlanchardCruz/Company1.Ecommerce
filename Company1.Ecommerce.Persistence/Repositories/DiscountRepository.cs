@@ -1,6 +1,8 @@
-﻿using Company1.Ecommerce.Application.Interface.Persistence;
+﻿using Bogus;
+using Company1.Ecommerce.Application.Interface.Persistence;
 using Company1.Ecommerce.Domain.Entities;
 using Company1.Ecommerce.Persistence.Context;
+using Company1.Ecommerce.Persistence.Mocks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company1.Ecommerce.Persistence.Repositories;
@@ -76,14 +78,19 @@ public class DiscountRepository : IDiscountRepository
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Discount>> GetAllAsync(int page, int recordsPerPage)
+    public async Task<IEnumerable<Discount>> GetAllAsync(int pageNumber, int recordsPerPage)
     {
-        throw new NotImplementedException();
+        var faker = new DiscountGetAllAsyncBogusConfig();
+        var result = await Task.Run(() => faker.Generate(1000));
+
+        return result
+            .Skip((pageNumber - 1) * recordsPerPage)
+            .Take(recordsPerPage);
     }
 
     public async Task<int> CountAsync()
     {
-        throw new NotImplementedException();
+        return await Task.Run(() => 1000);
     }
 
     #endregion

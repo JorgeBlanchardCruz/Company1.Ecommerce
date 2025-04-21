@@ -159,4 +159,34 @@ public class DiscountsApplication : IDiscountsApplication
 
         return response;
     }
+
+
+    public async Task<ResponsePagination<IEnumerable<DiscountDTO>>> GetAllAsync(int pageIndex, int pageSize)
+    {
+        var response = new ResponsePagination<IEnumerable<DiscountDTO>>();
+        try
+        {
+            var count = await _unitOfWork.Discounts.CountAsync();
+
+            var data = await _unitOfWork.Discounts.GetAllAsync(pageIndex, pageSize);
+            response.Data = _mapper.Map<IEnumerable<DiscountDTO>>(data);
+
+            if (response.Data is not null)
+            {
+                response.TotalPages = (int)Math.Ceiling((double)count / pageSize);
+                response.TotalRecords = count;
+                response.PageIndex = pageIndex;
+                response.PageSize = pageSize;
+                response.IsSuccess = true;
+                response.Message = "Discounts found";
+            }
+
+        }
+        catch (Exception ex)
+        {
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
 }

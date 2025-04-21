@@ -1,5 +1,6 @@
 ﻿using Company1.Ecommerce.Application.DTO;
 using Company1.Ecommerce.Application.Interface.UseCases;
+using Company1.Ecommerce.Application.UseCases.Customers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 
@@ -81,5 +82,14 @@ public class DiscountsController : Controller
         return BadRequest(response.Message);
     }
 
+    [HttpGet("Paginated")]
+    public async Task<IActionResult> GetAllAsync(int pageIndex, int pageSize)
+    {
+        var response = await _discountsApplication.GetAllAsync(pageIndex, pageSize);
+        if (response.IsSuccess)
+            return Ok(response);
+
+        return BadRequest(response.Message);
+    }
 
 }
