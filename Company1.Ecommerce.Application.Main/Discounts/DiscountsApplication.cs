@@ -7,6 +7,7 @@ using Company1.Ecommerce.Application.Validator;
 using Company1.Ecommerce.Domain.Entities;
 using Company1.Ecommerce.Domain.Events;
 using Company1.Ecommerce.Transverse.Common;
+using System.Text.Json;
 
 namespace Company1.Ecommerce.Application.UseCases.Discounts;
 
@@ -16,13 +17,15 @@ public class DiscountsApplication : IDiscountsApplication
     private readonly IMapper _mapper;
     private readonly IEventBus _eventBus;
     private readonly DiscountDtoValidator _validator;
+    private readonly INotification _notification;
 
-    public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, IEventBus eventBus, DiscountDtoValidator validator)
+    public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, IEventBus eventBus, DiscountDtoValidator validator, INotification notification)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _eventBus = eventBus;
         _validator = validator;
+        _notification = notification;
     }
 
     public async Task<Response<bool>> CreateAsync(DiscountDTO discount, CancellationToken cancellationToken = default)
@@ -50,11 +53,16 @@ public class DiscountsApplication : IDiscountsApplication
                 // Publish an event if needed
                 var discountCreatedEvent = _mapper.Map<DiscountCreatedEvent>(discountEntity);
                 _eventBus.Publish(discountCreatedEvent);
+
+                // Optionally send a notification
+                await _notification.SendEmailAsync(response.Message, JsonSerializer.Serialize(discount), cancellationToken);
             }
         }
         catch (Exception ex)
         {
             response.Message = ex.Message;
+
+            await _notification.SendEmailAsync(response.Message, JsonSerializer.Serialize(response), cancellationToken);
         }
 
         return response;
