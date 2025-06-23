@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
+﻿using Asp.Versioning;
 
 namespace Company1.Ecommerce.Service.WebApi.Modules.Versioning;
 
@@ -14,9 +13,8 @@ public static class VersioningExtensions
             options.DefaultApiVersion = new ApiVersion(2, 0);
             options.ReportApiVersions = true;
             options.ApiVersionReader = new UrlSegmentApiVersionReader();
-        });
-
-        services.AddVersionedApiExplorer(options =>
+        })
+        .AddApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'VVV";
             options.SubstituteApiVersionInUrl = true;

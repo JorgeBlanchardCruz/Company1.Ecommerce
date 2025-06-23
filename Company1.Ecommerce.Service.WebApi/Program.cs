@@ -1,3 +1,4 @@
+using Asp.Versioning.ApiExplorer;
 using Company1.Ecommerce.Application.UseCases;
 using Company1.Ecommerce.Infrastructure;
 using Company1.Ecommerce.Persistence;
@@ -12,7 +13,6 @@ using Company1.Ecommerce.Service.WebApi.Modules.Versioning;
 using Company1.Ecommerce.Service.WebApi.Modules.Watch;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using WatchDog;
 
 var builder = WebApplication.CreateBuilder(args);
