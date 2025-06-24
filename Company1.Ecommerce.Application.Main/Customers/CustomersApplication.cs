@@ -25,20 +25,13 @@ public class CustomersApplication : ICustomersApplication
     public Response<bool> Insert(CustomerDTO customerDTO)
     {
         var response = new Response<bool>();
-        try
-        {
-            var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = _unitOfWork.Customers.Insert(customer);
+        var customer = _mapper.Map<Customer>(customerDTO);
+        response.Data = _unitOfWork.Customers.Insert(customer);
 
-            if(response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Customer inserted successfully";
-            }
-        }
-        catch (Exception ex)
+        if(response.Data)
         {
-            response.Message = ex.Message;
+            response.IsSuccess = true;
+            response.Message = "Customer inserted successfully";
         }
 
         return response;
@@ -47,19 +40,12 @@ public class CustomersApplication : ICustomersApplication
     public Response<bool> Update(CustomerDTO customer)
     {
         var response = new Response<bool>();
-        try
+        var customerEntity = _mapper.Map<Customer>(customer);
+        response.Data = _unitOfWork.Customers.Update(customerEntity);
+        if (response.Data)
         {
-            var customerEntity = _mapper.Map<Customer>(customer);
-            response.Data = _unitOfWork.Customers.Update(customerEntity);
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Customer updated successfully";
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
+            response.IsSuccess = true;
+            response.Message = "Customer updated successfully";
         }
 
         return response;
@@ -68,18 +54,11 @@ public class CustomersApplication : ICustomersApplication
     public Response<bool> Delete(int customerId)
     {
         var response = new Response<bool>();
-        try
+        response.Data = _unitOfWork.Customers.Delete(customerId);
+        if (response.Data)
         {
-            response.Data = _unitOfWork.Customers.Delete(customerId);
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Customer deleted successfully";
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
+            response.IsSuccess = true;
+            response.Message = "Customer deleted successfully";
         }
 
         return response;
@@ -88,16 +67,9 @@ public class CustomersApplication : ICustomersApplication
     public Response<CustomerDTO> Get(int customerId)
     {
         var response = new Response<CustomerDTO>();
-        try
-        {
-            var customer = _unitOfWork.Customers.Get(customerId);
-            response.Data = _mapper.Map<CustomerDTO>(customer);
-            response.IsSuccess = true;
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
-        }
+        var customer = _unitOfWork.Customers.Get(customerId);
+        response.Data = _mapper.Map<CustomerDTO>(customer);
+        response.IsSuccess = true;
 
         return response;
     }
@@ -105,16 +77,9 @@ public class CustomersApplication : ICustomersApplication
     public Response<IEnumerable<CustomerDTO>> GetAll()
     {
         var response = new Response<IEnumerable<CustomerDTO>>();
-        try
-        {
-            var customers = _unitOfWork.Customers.GetAll();
-            response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
-            response.IsSuccess = true;
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
-        }
+        var customers = _unitOfWork.Customers.GetAll();
+        response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+        response.IsSuccess = true;
 
         return response;
     }
@@ -124,20 +89,13 @@ public class CustomersApplication : ICustomersApplication
     public async Task<Response<bool>> InsertAsync(CustomerDTO customerDTO)
     {
         var response = new Response<bool>();
-        try
-        {
-            var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = await _unitOfWork.Customers.InsertAsync(customer);
+        var customer = _mapper.Map<Customer>(customerDTO);
+        response.Data = await _unitOfWork.Customers.InsertAsync(customer);
 
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Customer inserted successfully";
-            }
-        }
-        catch (Exception ex)
+        if (response.Data)
         {
-            response.Message = ex.Message;
+            response.IsSuccess = true;
+            response.Message = "Customer inserted successfully";
         }
 
         return response;
@@ -145,19 +103,12 @@ public class CustomersApplication : ICustomersApplication
     public async Task<Response<bool>> UpdateAsync(CustomerDTO customerDTO)
     {
         var response = new Response<bool>();
-        try
+        var customer = _mapper.Map<Customer>(customerDTO);
+        response.Data = await _unitOfWork.Customers.UpdateAsync(customer);
+        if (response.Data)
         {
-            var customer = _mapper.Map<Customer>(customerDTO);
-            response.Data = await _unitOfWork.Customers.UpdateAsync(customer);
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Customer updated successfully";
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
+            response.IsSuccess = true;
+            response.Message = "Customer updated successfully";
         }
         return response;
     }
@@ -165,18 +116,11 @@ public class CustomersApplication : ICustomersApplication
     public async Task<Response<bool>> DeleteAsync(int customerId)
     {
         var response = new Response<bool>();
-        try
+        response.Data = await _unitOfWork.Customers.DeleteAsync(customerId);
+        if (response.Data)
         {
-            response.Data = await _unitOfWork.Customers.DeleteAsync(customerId);
-            if (response.Data)
-            {
-                response.IsSuccess = true;
-                response.Message = "Customer deleted successfully";
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
+            response.IsSuccess = true;
+            response.Message = "Customer deleted successfully";
         }
         return response;
     }
@@ -184,37 +128,22 @@ public class CustomersApplication : ICustomersApplication
     public async Task<Response<CustomerDTO>> GetAsync(int customerId)
     {
         var response = new Response<CustomerDTO>();
-        try
-        {
-            var customer = await _unitOfWork.Customers.GetAsync(customerId);
-            response.Data = _mapper.Map<CustomerDTO>(customer);
-            response.IsSuccess = true;
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
-        }
+        var customer = await _unitOfWork.Customers.GetAsync(customerId);
+        response.Data = _mapper.Map<CustomerDTO>(customer);
+        response.IsSuccess = true;
         return response;
     }
 
     public async Task<Response<IEnumerable<CustomerDTO>>> GetAllAsync()
     {
         var response = new Response<IEnumerable<CustomerDTO>>();
-        try
+        var customers = await _unitOfWork.Customers.GetAllAsync();
+        response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+        if (response.Data is not null)
         {
-            var customers = await _unitOfWork.Customers.GetAllAsync();
-            response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
-            if (response.Data is not null)
-            {
-                response.IsSuccess = true;
-                response.Message = "Customers found";
-                _logger.LogInformation(response.Message);
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
-            _logger.LogError(response.Message);
+            response.IsSuccess = true;
+            response.Message = "Customers found";
+            _logger.LogInformation(response.Message);
         }
         return response;
     }
@@ -222,27 +151,19 @@ public class CustomersApplication : ICustomersApplication
     public async Task<ResponsePagination<IEnumerable<CustomerDTO>>> GetAllAsync(int pageIndex, int pageSize)
     {
         var response = new ResponsePagination<IEnumerable<CustomerDTO>>();
-        try
+        var count = await _unitOfWork.Customers.CountAsync();
+
+        var customers = await _unitOfWork.Customers.GetAllAsync(pageIndex, pageSize);
+        response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+
+        if (response.Data is not null)
         {
-            var count = await _unitOfWork.Customers.CountAsync();
-
-            var customers = await _unitOfWork.Customers.GetAllAsync(pageIndex, pageSize);
-            response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
-
-            if (response.Data is not null)
-            {
-                response.TotalPages = (int)Math.Ceiling((double)count / pageSize);
-                response.TotalRecords = count;
-                response.PageIndex = pageIndex;
-                response.PageSize = pageSize;
-                response.IsSuccess = true;
-                response.Message = "Customers found";
-            }
-
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
+            response.TotalPages = (int)Math.Ceiling((double)count / pageSize);
+            response.TotalRecords = count;
+            response.PageIndex = pageIndex;
+            response.PageSize = pageSize;
+            response.IsSuccess = true;
+            response.Message = "Customers found";
         }
 
         return response;

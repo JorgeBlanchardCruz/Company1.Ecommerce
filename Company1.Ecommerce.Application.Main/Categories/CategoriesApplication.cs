@@ -27,42 +27,34 @@ public class CategoriesApplication : ICategoriesApplication
         var response = new Response<IEnumerable<CategoryDTO>>();
         var cacheKey = "CategoriesCacheKey";
 
-        try
+        var cachedCategories = await _distributedCache.GetAsync(cacheKey);
+        if (cachedCategories is not null)
         {
-            var cachedCategories = await _distributedCache.GetAsync(cacheKey);
-            if (cachedCategories is not null)
-            {
-                response.Data = JsonSerializer.Deserialize<IEnumerable<CategoryDTO>>(cachedCategories)!;
-            }
-            else
-            {
-                var categories = await _unitOfWork.Categories.GetAllAsync();
-                response.Data = _mapper.Map<IEnumerable<CategoryDTO>>(categories);
-
-                if (response.Data is not null)
-                {
-                    var serializedCategories = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response.Data));
-                    var cacheOptions = new DistributedCacheEntryOptions
-                    {
-                        AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(8),
-                        SlidingExpiration = TimeSpan.FromMinutes(60)
-                    };
-
-                    await _distributedCache.SetAsync(cacheKey, serializedCategories, cacheOptions);
-                }
-
-            }
+            response.Data = JsonSerializer.Deserialize<IEnumerable<CategoryDTO>>(cachedCategories)!;
+        }
+        else
+        {
+            var categories = await _unitOfWork.Categories.GetAllAsync();
+            response.Data = _mapper.Map<IEnumerable<CategoryDTO>>(categories);
 
             if (response.Data is not null)
             {
-                response.IsSuccess = true;
-                response.Message = "Categories retrieved successfully.";
+                var serializedCategories = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(response.Data));
+                var cacheOptions = new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(8),
+                    SlidingExpiration = TimeSpan.FromMinutes(60)
+                };
+
+                await _distributedCache.SetAsync(cacheKey, serializedCategories, cacheOptions);
             }
+
         }
-        catch (Exception ex)
+
+        if (response.Data is not null)
         {
-            response.IsSuccess = false;
-            response.Message = ex.Message;
+            response.IsSuccess = true;
+            response.Message = "Categories retrieved successfully.";
         }
 
         return response;

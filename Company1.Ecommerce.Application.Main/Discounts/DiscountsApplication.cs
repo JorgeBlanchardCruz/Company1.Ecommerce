@@ -31,38 +31,29 @@ public class DiscountsApplication : IDiscountsApplication
     public async Task<Response<bool>> CreateAsync(DiscountDTO discount, CancellationToken cancellationToken = default)
     {
         var response = new Response<bool>();
-        try
+        var validationResult = await _validator.ValidateAsync(discount, cancellationToken);
+        if (!validationResult.IsValid)
         {
-            var validationResult = await _validator.ValidateAsync(discount, cancellationToken);
-            if (!validationResult.IsValid)
-            {
-                response.Message = "Validation failed";
-                response.Errors = validationResult.Errors;
-                return response;
-            }
-
-            var discountEntity = _mapper.Map<Discount>(discount);
-            await _unitOfWork.Discounts.InsertAsync(discountEntity);
-
-            response.Data = await _unitOfWork.SaveAsync(cancellationToken) > 0;
-            if (response.Data)
-            {
-                response.Message = "Discount created successfully";
-                response.IsSuccess = true;
-
-                // Publish an event if needed
-                var discountCreatedEvent = _mapper.Map<DiscountCreatedEvent>(discountEntity);
-                _eventBus.Publish(discountCreatedEvent);
-
-                // Optionally send a notification
-                await _notification.SendEmailAsync(response.Message, JsonSerializer.Serialize(discount), cancellationToken);
-            }
+            response.Message = "Validation failed";
+            response.Errors = validationResult.Errors;
+            return response;
         }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
 
-            await _notification.SendEmailAsync(response.Message, JsonSerializer.Serialize(response), cancellationToken);
+        var discountEntity = _mapper.Map<Discount>(discount);
+        await _unitOfWork.Discounts.InsertAsync(discountEntity);
+
+        response.Data = await _unitOfWork.SaveAsync(cancellationToken) > 0;
+        if (response.Data)
+        {
+            response.Message = "Discount created successfully";
+            response.IsSuccess = true;
+
+            // Publish an event if needed
+            var discountCreatedEvent = _mapper.Map<DiscountCreatedEvent>(discountEntity);
+            _eventBus.Publish(discountCreatedEvent);
+
+            // Optionally send a notification
+            await _notification.SendEmailAsync(response.Message, JsonSerializer.Serialize(discount), cancellationToken);
         }
 
         return response;
@@ -71,29 +62,22 @@ public class DiscountsApplication : IDiscountsApplication
     public async Task<Response<bool>> UpdateAsync(DiscountDTO discount, CancellationToken cancellationToken = default)
     {
         var response = new Response<bool>();
-        try
+        var validationResult = await _validator.ValidateAsync(discount, cancellationToken);
+        if (!validationResult.IsValid)
         {
-            var validationResult = await _validator.ValidateAsync(discount, cancellationToken);
-            if (!validationResult.IsValid)
-            {
-                response.Message = "Validation failed";
-                response.Errors = validationResult.Errors;
-                return response;
-            }
-
-            var discountEntity = _mapper.Map<Discount>(discount);
-            await _unitOfWork.Discounts.UpdateAsync(discountEntity);
-
-            response.Data = await _unitOfWork.SaveAsync(cancellationToken) > 0;
-            if (response.Data)
-            {
-                response.Message = "Discount updated successfully";
-                response.IsSuccess = true;
-            }
+            response.Message = "Validation failed";
+            response.Errors = validationResult.Errors;
+            return response;
         }
-        catch (Exception ex)
+
+        var discountEntity = _mapper.Map<Discount>(discount);
+        await _unitOfWork.Discounts.UpdateAsync(discountEntity);
+
+        response.Data = await _unitOfWork.SaveAsync(cancellationToken) > 0;
+        if (response.Data)
         {
-            response.Message = ex.Message;
+            response.Message = "Discount updated successfully";
+            response.IsSuccess = true;
         }
 
         return response;
@@ -102,19 +86,12 @@ public class DiscountsApplication : IDiscountsApplication
     public async Task<Response<bool>> DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         var response = new Response<bool>();
-        try
+        await _unitOfWork.Discounts.DeleteAsync(id);
+        response.Data = await _unitOfWork.SaveAsync(cancellationToken) > 0;
+        if (response.Data)
         {
-            await _unitOfWork.Discounts.DeleteAsync(id);
-            response.Data = await _unitOfWork.SaveAsync(cancellationToken) > 0;
-            if (response.Data)
-            {
-                response.Message = "Discount deleted successfully";
-                response.IsSuccess = true;
-            }
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
+            response.Message = "Discount deleted successfully";
+            response.IsSuccess = true;
         }
 
         return response;
@@ -123,23 +100,16 @@ public class DiscountsApplication : IDiscountsApplication
     public async Task<Response<DiscountDTO>> GetAsync(int id, CancellationToken cancellationToken = default)
     {
         var response = new Response<DiscountDTO>();
-        try
+        var discountEntity = await _unitOfWork.Discounts.GetAsync(id, cancellationToken);
+        if (discountEntity is null)
         {
-            var discountEntity = await _unitOfWork.Discounts.GetAsync(id, cancellationToken);
-            if (discountEntity is null)
-            {
-                response.IsSuccess = true;
-                response.Message = "Discount not found";
-                return response;
-            }
-            response.Data = _mapper.Map<DiscountDTO>(discountEntity);
             response.IsSuccess = true;
-            response.Message = "Discount retrieved successfully";
+            response.Message = "Discount not found";
+            return response;
         }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
-        }
+        response.Data = _mapper.Map<DiscountDTO>(discountEntity);
+        response.IsSuccess = true;
+        response.Message = "Discount retrieved successfully";
 
         return response;
     }
@@ -147,23 +117,16 @@ public class DiscountsApplication : IDiscountsApplication
     public async Task<Response<IEnumerable<DiscountDTO>>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         var response = new Response<IEnumerable<DiscountDTO>>();
-        try
+        var discounts = await _unitOfWork.Discounts.GetAllAsync(cancellationToken);
+        response.Data = _mapper.Map<IEnumerable<DiscountDTO>>(discounts);
+        if (response.Data is null || !response.Data.Any())
         {
-            var discounts = await _unitOfWork.Discounts.GetAllAsync(cancellationToken);
-            response.Data = _mapper.Map<IEnumerable<DiscountDTO>>(discounts);
-            if (response.Data is null || !response.Data.Any())
-            {
-                response.IsSuccess = true;
-                response.Message = "No discounts found";
-                return response;
-            }
             response.IsSuccess = true;
-            response.Message = "Discounts retrieved successfully";
+            response.Message = "No discounts found";
+            return response;
         }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
-        }
+        response.IsSuccess = true;
+        response.Message = "Discounts retrieved successfully";
 
         return response;
     }
@@ -172,27 +135,19 @@ public class DiscountsApplication : IDiscountsApplication
     public async Task<ResponsePagination<IEnumerable<DiscountDTO>>> GetAllAsync(int pageIndex, int pageSize)
     {
         var response = new ResponsePagination<IEnumerable<DiscountDTO>>();
-        try
+        var count = await _unitOfWork.Discounts.CountAsync();
+
+        var data = await _unitOfWork.Discounts.GetAllAsync(pageIndex, pageSize);
+        response.Data = _mapper.Map<IEnumerable<DiscountDTO>>(data);
+
+        if (response.Data is not null)
         {
-            var count = await _unitOfWork.Discounts.CountAsync();
-
-            var data = await _unitOfWork.Discounts.GetAllAsync(pageIndex, pageSize);
-            response.Data = _mapper.Map<IEnumerable<DiscountDTO>>(data);
-
-            if (response.Data is not null)
-            {
-                response.TotalPages = (int)Math.Ceiling((double)count / pageSize);
-                response.TotalRecords = count;
-                response.PageIndex = pageIndex;
-                response.PageSize = pageSize;
-                response.IsSuccess = true;
-                response.Message = "Discounts found";
-            }
-
-        }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
+            response.TotalPages = (int)Math.Ceiling((double)count / pageSize);
+            response.TotalRecords = count;
+            response.PageIndex = pageIndex;
+            response.PageSize = pageSize;
+            response.IsSuccess = true;
+            response.Message = "Discounts found";
         }
 
         return response;

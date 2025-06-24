@@ -45,10 +45,6 @@ public class UsersApplication : IUsersApplication
             response.IsSuccess = true;
             response.Message = "User not found";
         }
-        catch (Exception ex)
-        {
-            response.Message = ex.Message;
-        }
 
         return response;
     }

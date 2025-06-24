@@ -115,6 +115,7 @@ public class CustomersRepository : ICustomersRepository
         var query = "CustomersInsert";
 
         var parameters = new DynamicParameters();
+        parameters.Add("@CustomerId", customer.CustomerId);
         parameters.Add("@CompanyName", customer.CompanyName);
         parameters.Add("@ContactName", customer.ContactName);
         parameters.Add("@ContactTitle", customer.ContactTitle);

@@ -6,6 +6,7 @@ using Company1.Ecommerce.Service.WebApi.Modules.Authentication;
 using Company1.Ecommerce.Service.WebApi.Modules.Feature;
 using Company1.Ecommerce.Service.WebApi.Modules.HealthCheck;
 using Company1.Ecommerce.Service.WebApi.Modules.Injection;
+using Company1.Ecommerce.Service.WebApi.Modules.Middleware;
 using Company1.Ecommerce.Service.WebApi.Modules.RateLimiter;
 using Company1.Ecommerce.Service.WebApi.Modules.Redis;
 using Company1.Ecommerce.Service.WebApi.Modules.Swagger;
@@ -67,6 +68,8 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
+
+app.AddMiddleware();
 
 app.Run();
 #endregion
