@@ -10,10 +10,8 @@ using Company1.Ecommerce.Service.WebApi.Modules.RateLimiter;
 using Company1.Ecommerce.Service.WebApi.Modules.Redis;
 using Company1.Ecommerce.Service.WebApi.Modules.Swagger;
 using Company1.Ecommerce.Service.WebApi.Modules.Versioning;
-using Company1.Ecommerce.Service.WebApi.Modules.Watch;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using WatchDog;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration Configuration = builder.Configuration;
@@ -25,7 +23,6 @@ builder.Services.AddVersioning();
 builder.Services.AddFeature(Configuration);
 builder.Services.AddSwagger();
 builder.Services.AddHealthCheck(Configuration);
-builder.Services.AddWatchLog(Configuration);
 builder.Services.AddRedisCache(Configuration);
 builder.Services.AddRateLimiter(Configuration);
 
@@ -57,14 +54,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseWatchDogExceptionLogger();
 app.UseHttpsRedirection();
 app.UseCors(FeatureExtensions.MyPolicy);
-app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRateLimiter();
-app.UseEndpoints(_ => { });
 
 app.MapControllers();
 app.MapHealthChecksUI();
@@ -73,14 +67,6 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     Predicate = _ => true,
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
-
-
-app.UseWatchDog(configureOptions =>
-{
-    configureOptions.WatchPageUsername = builder.Configuration["WatchDog:WatchPageUsername"];
-    configureOptions.WatchPagePassword = builder.Configuration["WatchDog:WatchPagePassword"];
-});
-
 
 app.Run();
 #endregion

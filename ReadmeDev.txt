@@ -4,11 +4,6 @@ visita http://localhost:5285/healthchecks-ui#/healthchecks para el UI de healthc
 
 
 
-WatchDog
-visita http://localhost:5285/watchdog para el UI de WatchDog
-
-
-
 Redis cache
 Para montar un contenedor de Redis con Redis Stack, puedes usar el siguiente comando de Docker:
 >docker image pull redis/redis-stack:latest
