@@ -39,9 +39,9 @@
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.2" />
     <PackageVersion Include="MSTest" Version="3.9.3" />
     <PackageVersion Include="SendGrid.Extensions.DependencyInjection" Version="1.0.1" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.1" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="9.0.1" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="7.2.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
     <PackageVersion Include="WatchDog.NET" Version="1.4.12" />
   </ItemGroup>
 </Project>
