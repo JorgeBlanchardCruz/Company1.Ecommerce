@@ -4,6 +4,6 @@ namespace Company1.Ecommerce.Application.Interface.Persistence;
 
 public interface IUsersRepository : IGenericRepository<User>
 {
-    User Authenticate(string email, string password);
+    Task<User> AuthenticateAsync(string email, string password);
 
 }

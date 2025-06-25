@@ -35,7 +35,7 @@ public class UsersApplication : IUsersApplication
 
         try
         {
-            var user = _unitOfWork.Users.Authenticate(userName, password);
+            var user = _unitOfWork.Users.AuthenticateAsync(userName, password).GetAwaiter();
             response.Data = _mapper.Map<UserDTO>(user);
             response.Message = "User authenticated successfully";
             response.IsSuccess = true;

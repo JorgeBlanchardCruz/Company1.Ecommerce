@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Company1.Ecommerce.Application.DTO;
+using Company1.Ecommerce.Application.UseCases.Customers.Commands.CreateCustomerCommand;
+using Company1.Ecommerce.Application.UseCases.Customers.Commands.UpdateCustomerCommand;
 using Company1.Ecommerce.Domain.Entities;
 using Company1.Ecommerce.Domain.Events;
 
@@ -22,6 +24,9 @@ public class MappingsProfile : Profile
         //    .ForMember(dest => dest.Country, source => source.MapFrom(src => src.Country))
         //    .ForMember(dest => dest.Phone, source => source.MapFrom(src => src.Phone))
         //    .ForMember(dest => dest.Fax, source => source.MapFrom(src => src.Fax));
+
+        CreateMap<Customer, CreateCustomerCommand>().ReverseMap();
+        CreateMap<Customer, UpdateCustomerCommand>().ReverseMap();
 
         CreateMap<User, UserDTO>().ReverseMap();
 

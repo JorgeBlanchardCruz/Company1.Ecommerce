@@ -15,7 +15,7 @@ public class UsersRepository : IUsersRepository
         _context = context;
     }
 
-    public User Authenticate(string userName, string password)
+    public async Task<User> AuthenticateAsync(string userName, string password)
     {
         using var connection = _context.CreateConnection();
         var query = "UsersGetByUserAndPassword";
@@ -23,9 +23,9 @@ public class UsersRepository : IUsersRepository
         parameters.Add("@UserName", userName);
         parameters.Add("@Password", password);
 
-        var user = connection!.QuerySingle<User>(query, parameters, commandType: CommandType.StoredProcedure);
+        var user = await connection!.QuerySingleOrDefaultAsync<User>(query, parameters, commandType: CommandType.StoredProcedure);
 
-        return user;
+        return user!;
     }
 
     public Task<int> CountAsync()

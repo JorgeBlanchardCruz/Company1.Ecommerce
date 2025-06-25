@@ -100,6 +100,7 @@ public class CustomersApplication : ICustomersApplication
 
         return response;
     }
+
     public async Task<Response<bool>> UpdateAsync(CustomerDTO customerDTO)
     {
         var response = new Response<bool>();
