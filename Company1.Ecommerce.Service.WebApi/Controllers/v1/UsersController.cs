@@ -1,8 +1,9 @@
 ﻿using Asp.Versioning;
 using Company1.Ecommerce.Application.DTO;
-using Company1.Ecommerce.Application.Interface.UseCases;
+using Company1.Ecommerce.Application.UseCases.Users.Commands.CreateUserTokenCommand;
 using Company1.Ecommerce.Service.WebApi.Helpers;
 using Company1.Ecommerce.Transverse.Common;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -11,28 +12,29 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Company1.Ecommerce.Service.WebApi.Controllers.v1;
+namespace Company1.Ecommerce.Service.WebApi.Controllers.v3;
 
 [Authorize]
 [Route("api/v{version:apiVersion}/[controller]/[action]")]
 [ApiController]
-[ApiVersion("1.0", Deprecated = true)]
+[ApiVersion("1.0")]
 public class UsersController : Controller
 {
-    private readonly IUsersApplication _userApplication;
+    private readonly IMediator _mediator;
     private readonly AppSettings _appSettings;
 
-    public UsersController(IUsersApplication userApplication, IOptions<AppSettings> appSettings)
+    public UsersController(IMediator mediator, IOptions<AppSettings> appSettings)
     {
-        _userApplication = userApplication;
+        _mediator = mediator;
         _appSettings = appSettings.Value;
     }
 
     [AllowAnonymous]
     [HttpPost]
-    public IActionResult Authenticate([FromBody] UserDTO userDto)
+    public async Task<IActionResult> AuthenticateAsync([FromBody] CreateUserTokenCommand command)
     {
-        var response = _userApplication.Authenticate(userDto.UserName, userDto.Password);
+        var response = await _mediator.Send(command);
+
         if (response.IsSuccess)
         {
             if (response.Data is not null)

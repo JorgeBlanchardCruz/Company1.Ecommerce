@@ -1,56 +1,86 @@
 ﻿using Asp.Versioning;
-using Company1.Ecommerce.Application.DTO;
-using Company1.Ecommerce.Application.Interface.UseCases;
-using Microsoft.AspNetCore.Authorization;
+using Company1.Ecommerce.Application.UseCases.Customers.Commands.CreateCustomerCommand;
+using Company1.Ecommerce.Application.UseCases.Customers.Commands.DeleteCustomerCommand;
+using Company1.Ecommerce.Application.UseCases.Customers.Commands.UpdateCustomerCommand;
+using Company1.Ecommerce.Application.UseCases.Customers.Queries.GetAllCustomerQuery;
+using Company1.Ecommerce.Application.UseCases.Customers.Queries.GetAllWithPaginationCustomerQuery;
+using Company1.Ecommerce.Application.UseCases.Customers.Queries.GetCustomerQuery;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Company1.Ecommerce.Service.WebApi.Controllers.v1;
+namespace Company1.Ecommerce.Service.WebApi.Controllers.v3;
 
-[Authorize]
+//[Authorize]
 [Route("api/v{version:apiVersion}/[controller]/[action]")]
 [ApiController]
-[ApiVersion("1.0", Deprecated = true)]
+[ApiVersion("1.0")]
 public class CustomersController : Controller
 {
-    private readonly ICustomersApplication _customerApplication;
+    private readonly IMediator _mediator;
 
-    public CustomersController(ICustomersApplication customerApplication)
+    public CustomersController(IMediator mediator)
     {
-        _customerApplication = customerApplication;
+        _mediator = mediator;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAsync(int customerId)
     {
-        var response = await _customerApplication.GetAsync(customerId);
+        var response = await _mediator.Send(new GetCustomerQuery() { CustomerId = customerId });
         return Ok(response);
+    }
+
+    [HttpGet("Paginated")]
+    public async Task<IActionResult> GetAllAsync(int pageIndex, int pageSize)
+    {
+        var response = await _mediator.Send(new GetAllWithPaginationCustomerQuery()
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize
+        });
+
+        if (response.IsSuccess)
+            return Ok(response);
+
+        return BadRequest(response.Message);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
-        var response = await _customerApplication.GetAllAsync();
-        return Ok(response);
+        var response = await _mediator.Send(new GetAllCustomerQuery());
+        if (response.IsSuccess)
+            return Ok(response);
+
+        return BadRequest(response.Message);
     }
 
     [HttpPost]
-    public async Task<IActionResult> InsertAsync(CustomerDTO customer)
+    public async Task<IActionResult> InsertAsync(CreateCustomerCommand command)
     {
-        var response = await _customerApplication.InsertAsync(customer);
+        if (command is null)
+            return BadRequest();
+
+        var response = await _mediator.Send(command);
         return Ok(response);
     }
 
-    [HttpPut]
-    public async Task<IActionResult> UpdateAsync(CustomerDTO customer)
+    [HttpPut("{customerId}")]
+    public async Task<IActionResult> UpdateAsync([FromRoute] int customerId, UpdateCustomerCommand command)
     {
-        var response = await _customerApplication.UpdateAsync(customer);
+        var customerDto = await _mediator.Send(new GetCustomerQuery() { CustomerId = customerId });
+
+        if (customerDto.Data is null)
+            return NotFound(customerDto.Message);
+
+        var response = await _mediator.Send(command);
         return Ok(response);
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteAsync(int customerId)
+    public async Task<IActionResult> DeleteAsync(DeleteCustomerCommand command)
     {
-        var response = await _customerApplication.DeleteAsync(customerId);
+        var response = await _mediator.Send(command);
         return Ok(response);
     }
 }
