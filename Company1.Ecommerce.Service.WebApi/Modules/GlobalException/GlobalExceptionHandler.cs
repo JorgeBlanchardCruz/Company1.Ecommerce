@@ -1,4 +1,5 @@
-﻿using Company1.Ecommerce.Transverse.Common;
+﻿using Company1.Ecommerce.Application.UseCases.Commons.Exceptions;
+using Company1.Ecommerce.Transverse.Common;
 using System.Net;
 using System.Text.Json;
 
@@ -18,6 +19,16 @@ public class GlobalExceptionHandler : IMiddleware
         try
         {
             await next(context);
+        }
+        catch (ValidationExceptionCustom ex)
+        {
+            context.Response.ContentType = "application/json";
+            await JsonSerializer.SerializeAsync(context.Response.Body, 
+                new Response<Object>() 
+                { 
+                    Message = "Validation errors", 
+                    Errors = ex.Errors 
+                });
         }
         catch (Exception ex)
         {

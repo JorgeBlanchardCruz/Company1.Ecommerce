@@ -1,10 +1,8 @@
 ﻿using Company1.Ecommerce.Application.Interface.UseCases;
 using Company1.Ecommerce.Application.UseCases.Categories;
 using Company1.Ecommerce.Application.UseCases.Commons.Behaviors;
-using Company1.Ecommerce.Application.UseCases.Customers;
 using Company1.Ecommerce.Application.UseCases.Discounts;
-using Company1.Ecommerce.Application.UseCases.Users;
-using Company1.Ecommerce.Application.Validator;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -15,19 +13,19 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
         services.AddMediatR(cfg => {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         });
+
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        services.AddScoped<IUsersApplication, UsersApplication>();
         services.AddScoped<ICategoriesApplication, CategoriesApplication>();
         services.AddScoped<IDiscountsApplication, DiscountsApplication>();
-
-        services.AddTransient<UserDtoValidator>();
-        services.AddTransient<DiscountDtoValidator>();
 
         return services;
     }

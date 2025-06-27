@@ -3,7 +3,6 @@ using Company1.Ecommerce.Application.DTO;
 using Company1.Ecommerce.Application.Interface.Infrastructure;
 using Company1.Ecommerce.Application.Interface.Persistence;
 using Company1.Ecommerce.Application.Interface.UseCases;
-using Company1.Ecommerce.Application.Validator;
 using Company1.Ecommerce.Domain.Entities;
 using Company1.Ecommerce.Domain.Events;
 using Company1.Ecommerce.Transverse.Common;
@@ -16,28 +15,19 @@ public class DiscountsApplication : IDiscountsApplication
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly IEventBus _eventBus;
-    private readonly DiscountDtoValidator _validator;
     private readonly INotification _notification;
 
-    public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, IEventBus eventBus, DiscountDtoValidator validator, INotification notification)
+    public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, IEventBus eventBus, INotification notification)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _eventBus = eventBus;
-        _validator = validator;
         _notification = notification;
     }
 
     public async Task<Response<bool>> CreateAsync(DiscountDTO discount, CancellationToken cancellationToken = default)
     {
         var response = new Response<bool>();
-        var validationResult = await _validator.ValidateAsync(discount, cancellationToken);
-        if (!validationResult.IsValid)
-        {
-            response.Message = "Validation failed";
-            response.Errors = validationResult.Errors;
-            return response;
-        }
 
         var discountEntity = _mapper.Map<Discount>(discount);
         await _unitOfWork.Discounts.InsertAsync(discountEntity);
@@ -62,13 +52,6 @@ public class DiscountsApplication : IDiscountsApplication
     public async Task<Response<bool>> UpdateAsync(DiscountDTO discount, CancellationToken cancellationToken = default)
     {
         var response = new Response<bool>();
-        var validationResult = await _validator.ValidateAsync(discount, cancellationToken);
-        if (!validationResult.IsValid)
-        {
-            response.Message = "Validation failed";
-            response.Errors = validationResult.Errors;
-            return response;
-        }
 
         var discountEntity = _mapper.Map<Discount>(discount);
         await _unitOfWork.Discounts.UpdateAsync(discountEntity);
