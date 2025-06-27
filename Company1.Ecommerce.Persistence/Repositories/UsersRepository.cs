@@ -33,17 +33,17 @@ public class UsersRepository : IUsersRepository
         throw new NotImplementedException();
     }
 
-    public bool Delete(int id)
+    public bool Delete(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> DeleteAsync(int id)
+    public Task<bool> DeleteAsync(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Customer Get(int id)
+    public Customer Get(string id)
     {
         throw new NotImplementedException();
     }
@@ -63,7 +63,7 @@ public class UsersRepository : IUsersRepository
         throw new NotImplementedException();
     }
 
-    public Task<Customer> GetAsync(int id)
+    public Task<Customer> GetAsync(string id)
     {
         throw new NotImplementedException();
     }

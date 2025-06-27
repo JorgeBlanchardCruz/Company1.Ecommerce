@@ -83,7 +83,7 @@ public class DiscountsApplication : IDiscountsApplication
         return response;
     }
 
-    public async Task<Response<bool>> DeleteAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Response<bool>> DeleteAsync(string id, CancellationToken cancellationToken = default)
     {
         var response = new Response<bool>();
         await _unitOfWork.Discounts.DeleteAsync(id);
@@ -97,7 +97,7 @@ public class DiscountsApplication : IDiscountsApplication
         return response;
     }
 
-    public async Task<Response<DiscountDTO>> GetAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Response<DiscountDTO>> GetAsync(string id, CancellationToken cancellationToken = default)
     {
         var response = new Response<DiscountDTO>();
         var discountEntity = await _unitOfWork.Discounts.GetAsync(id, cancellationToken);

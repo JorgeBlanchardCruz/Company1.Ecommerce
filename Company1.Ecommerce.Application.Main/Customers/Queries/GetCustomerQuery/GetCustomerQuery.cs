@@ -6,5 +6,5 @@ namespace Company1.Ecommerce.Application.UseCases.Customers.Queries.GetCustomerQ
 
 public sealed record GetCustomerQuery : IRequest<Response<CustomerDTO>>
 {
-    public int CustomerId { get; set; } = default!;
+    public string CustomerId { get; set; } = default!;
 }

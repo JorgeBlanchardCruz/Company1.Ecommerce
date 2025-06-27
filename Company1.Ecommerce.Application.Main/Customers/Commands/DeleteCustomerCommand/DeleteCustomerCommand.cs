@@ -5,5 +5,5 @@ namespace Company1.Ecommerce.Application.UseCases.Customers.Commands.DeleteCusto
 
 public sealed record DeleteCustomerCommand : IRequest<Response<bool>>
 {
-    public int CustomerId { get; set; } = default;
+    public string CustomerId { get; set; } = default!;
 }

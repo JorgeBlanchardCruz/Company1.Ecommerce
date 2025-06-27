@@ -17,7 +17,7 @@ public class DiscountRepository : IDiscountRepository
     }
 
     #region Async
-    public async Task<Discount> GetAsync(int id, CancellationToken cancellationToken)
+    public async Task<Discount> GetAsync(string id, CancellationToken cancellationToken)
     {
         return await _context.Set<Discount>()
             .AsNoTracking()
@@ -55,7 +55,7 @@ public class DiscountRepository : IDiscountRepository
         return await Task.FromResult(true);
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(string id)
     {
         var entity = await _context.Set<Discount>()
             .AsNoTracking()
@@ -68,7 +68,7 @@ public class DiscountRepository : IDiscountRepository
         return await Task.FromResult(true);
     }
 
-    public async Task<Customer> GetAsync(int id)
+    public async Task<Customer> GetAsync(string id)
     {
         throw new NotImplementedException();
     }
@@ -96,12 +96,12 @@ public class DiscountRepository : IDiscountRepository
     #endregion
 
     #region Sync
-    public bool Delete(int id)
+    public bool Delete(string id)
     {
         throw new NotImplementedException();
     }
 
-    public Customer Get(int id)
+    public Customer Get(string id)
     {
         throw new NotImplementedException();
     }

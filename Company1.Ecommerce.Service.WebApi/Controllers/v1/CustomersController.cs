@@ -24,7 +24,7 @@ public class CustomersController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAsync(int customerId)
+    public async Task<IActionResult> GetAsync(string customerId)
     {
         var response = await _mediator.Send(new GetCustomerQuery() { CustomerId = customerId });
         return Ok(response);
@@ -66,7 +66,7 @@ public class CustomersController : Controller
     }
 
     [HttpPut("{customerId}")]
-    public async Task<IActionResult> UpdateAsync([FromRoute] int customerId, UpdateCustomerCommand command)
+    public async Task<IActionResult> UpdateAsync([FromRoute] string customerId, UpdateCustomerCommand command)
     {
         var customerDto = await _mediator.Send(new GetCustomerQuery() { CustomerId = customerId });
 
