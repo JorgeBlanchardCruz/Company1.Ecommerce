@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Http.Timeouts;
+using System.Text.Json.Serialization;
 
 namespace Company1.Ecommerce.Service.WebApi.Modules.Feature;
 
@@ -21,6 +23,11 @@ public static class FeatureExtensions
         {
             var enumConverter = new JsonStringEnumConverter();
             options.JsonSerializerOptions.Converters.Add(enumConverter);
+        });
+
+        services.AddRequestTimeouts(options => {
+            options.DefaultPolicy = new RequestTimeoutPolicy { Timeout = TimeSpan.FromMilliseconds(1500) };
+            options.AddPolicy("CustomPolicy", TimeSpan.FromMilliseconds(1500));
         });
 
         return services;

@@ -48,7 +48,7 @@ public class CustomersController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
-        var response = await _mediator.Send(new GetAllCustomerQuery());
+        var response = await _mediator.Send(new GetAllCustomerQuery(), HttpContext.RequestAborted);
         if (response.IsSuccess)
             return Ok(response);
 

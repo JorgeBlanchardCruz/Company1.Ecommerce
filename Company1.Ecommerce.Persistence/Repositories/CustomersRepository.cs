@@ -187,7 +187,7 @@ public class CustomersRepository : ICustomersRepository
         return result;
     }
 
-    public async Task<IEnumerable<Customer>> GetAllAsync()
+    public async Task<IEnumerable<Customer>> GetAllAsync(CancellationToken cancellationToken)
     {
         using var connection = _context.CreateConnection();
 

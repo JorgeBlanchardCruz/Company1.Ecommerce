@@ -17,7 +17,7 @@ public interface IGenericRepository<T> where T : class
     Task<bool> UpdateAsync(T entity);
     Task<bool> DeleteAsync(string id);
     Task<Customer> GetAsync(string id);
-    Task<IEnumerable<T>> GetAllAsync();
+    Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken);
 
     Task<IEnumerable<T>> GetAllAsync(int page, int recordsPerPage);
     Task<int> CountAsync();

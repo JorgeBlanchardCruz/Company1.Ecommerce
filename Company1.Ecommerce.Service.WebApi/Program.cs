@@ -60,6 +60,7 @@ app.UseCors(FeatureExtensions.MyPolicy);
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseRateLimiter();
+app.UseRequestTimeouts();
 
 app.MapControllers();
 app.MapHealthChecksUI();

@@ -20,7 +20,7 @@ public class GetAllCustomerHandler : IRequestHandler<GetAllCustomerQuery, Respon
     public async Task<Response<IEnumerable<CustomerDTO>>> Handle(GetAllCustomerQuery request, CancellationToken cancellationToken)
     {
         var response = new Response<IEnumerable<CustomerDTO>>();
-        var customers = await _unitOfWork.Customers.GetAllAsync();
+        var customers = await _unitOfWork.Customers.GetAllAsync(cancellationToken);
         response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
         if (response.Data is not null)
         {

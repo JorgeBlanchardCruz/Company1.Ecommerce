@@ -53,7 +53,7 @@ public class UsersRepository : IUsersRepository
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<User>> GetAllAsync()
+    public Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
