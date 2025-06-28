@@ -17,6 +17,8 @@ public static class AuthenticationExtensions
         var issuer = appSettings.Issuer;
         var audience = appSettings.Audience;
 
+        services.AddHttpContextAccessor();
+
         services.AddAuthentication(x =>
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

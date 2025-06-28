@@ -53,6 +53,13 @@ public class UsersController : Controller
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey);
+
+        var claims = new Dictionary<string, object>
+        {
+            { "userid", userDto.Data.Id.ToString() },
+            { "username", userDto.Data.UserName }
+        };
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(
@@ -62,7 +69,8 @@ public class UsersController : Controller
             Expires = DateTime.UtcNow.AddHours(1),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             Issuer = _appSettings.Issuer,
-            Audience = _appSettings.Audience
+            Audience = _appSettings.Audience,
+            Claims = claims
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
