@@ -1,3 +1,14 @@
+
+SQL Server
+Puedes montar un contenedor de SQL Server con los siguientes comandos de Docker:
+>docker pull mcr.microsoft.com/mssql/server:2022-latest
+>docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=M1cros0ft#2025" -p 1433:1433 --name sqlserver -v sql_data:/var/opt/mssql --restart unless-stopped -d mcr.microsoft.com/mssql/server:2022-latest
+
+Para conectarte a SQL Server, puedes usar SQL Server Management Studio (SSMS) o Azure Data Studio. La cadena de conexión sería:
+Server=localhost,1433;Database=Company1.Ecommerce;User Id=sa;Password=M1cros0ft#2025;
+
+
+
 MapHealthChecks
 comprueba http://localhost:5285/health
 visita http://localhost:5285/healthchecks-ui#/healthchecks para el UI de healthchecks
