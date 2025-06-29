@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "M1cros0ft#2025"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    restart: unless-stopped
+
+  redis-stack:
+    image: redis/redis-stack:latest
+    container_name: redis-stack
+    environment:
+      REDIS_ARGS: "--requirepass 123456"
+    ports:
+      - "6379:6379"     # Redis
+      - "8001:8001"     # Redis UI
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"     # RabbitMQ
+      - "15672:15672"   # Management UI
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+volumes:
+  sql_data:
