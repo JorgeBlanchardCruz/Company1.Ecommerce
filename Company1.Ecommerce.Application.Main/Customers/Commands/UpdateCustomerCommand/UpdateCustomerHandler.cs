@@ -21,6 +21,15 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Resp
     {
         var response = new Response<bool>();
         var customer = _mapper.Map<Customer>(request);
+
+        var countrySpecification = new Domain.Specifications.CountryinBlackListSpecification();
+        if (!countrySpecification.IsSatisfiedBy(customer))
+        {
+            response.IsSuccess = false;
+            response.Message = $"The country is in the blacklist> {customer.Country}";
+            return response;
+        }
+
         response.Data = await _unitOfWork.Customers.UpdateAsync(customer);
 
         if (response.Data)
